@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { fetchProducts } from '../../../../state/actions';
 import { Link } from 'react-router-dom';
 
-import NavBar from '../../../common/navBar';
+import { NavBar } from '../../../common/NavBar';
 import SearchResults from './searchResults';
 import useSearch from '../../../common/customHooks/useSearch';
 
@@ -28,7 +28,6 @@ function CurrentInventory({ inventory, fetchProducts, getProductsStatus }) {
           <Link to="/myprofile/inventory/additem">
             <Button>+Add Item</Button>
           </Link>
-
         </div>
       </div>
     </>

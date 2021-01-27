@@ -28,6 +28,7 @@ const getDSData = (url, authState) => {
   if (!url) {
     throw new Error('No URL provided');
   }
+
   return axios
     .get(url, { headers })
     .then(res => res.data)
