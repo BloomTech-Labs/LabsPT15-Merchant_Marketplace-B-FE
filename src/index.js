@@ -10,21 +10,21 @@ import {
 import { Security, LoginCallback, SecureRoute } from '@okta/okta-react';
 import 'antd/dist/antd.less';
 
-import { NotFoundPage } from './components/pages/NotFound';
+import { NotFoundPage } from './pages/NotFound';
 
-import { LoginPage } from './components/pages/Login';
-import { config } from './utils/oktaConfig';
+import { LoginPage } from './pages/Login';
+import { config } from './services/okta/oktaConfig';
 import reducer from './state/reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import Landing from './components/pages/Landing/Landing';
+import Landing from './pages/Landing/Landing';
 
 // Seller Imports
-import SellerProfile from './components/sellerPages/profile';
-import Inventory from './components/sellerPages/inventory';
-import CurrentInventory from './components/sellerPages/inventory/current';
-import { ProductPage } from './components/pages/ProductPage';
+import SellerProfile from './pages/SellerProfilePage';
+import Inventory from './pages/InventoryPage';
+import CurrentInventory from './pages/CurrentInventoryPage';
+import { ProductPage } from './pages/ProductPage';
 import { TestItemImageUpload } from './components/common';
 
 const store = createStore(reducer, compose(applyMiddleware(thunk)));
