@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../../common/navBar/index';
+import { NavBar } from '../../common/NavBar';
 import ProductInfo from '../ProductInfo/ProductInfo';
 import { connect } from 'react-redux';
 

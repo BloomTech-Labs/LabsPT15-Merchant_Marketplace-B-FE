@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ItemCard from '../../common/cards/normalItem';
-import NavBar from '../../common/navBar';
+import NavBar from '../../components/common/NavBar';
 import { connect } from 'react-redux';
 import { fetchProducts } from '../../../state/actions/index';
 import { useOktaAuth } from '@okta/okta-react';

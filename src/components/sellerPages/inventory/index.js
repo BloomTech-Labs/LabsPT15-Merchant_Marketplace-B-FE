@@ -6,7 +6,7 @@ import Specifications from './newItem/specifications';
 import AddPhotos from './newItem/photos';
 import Finalize from './newItem/review_product';
 import ProgressBar from '../../common/progressBar/progressBar';
-import NavBar from '../../common/navBar';
+import { NavBar } from '../../common/NavBar';
 import { addProduct } from '../../../state/actions/index';
 import { connect } from 'react-redux';
 import { useOktaAuth } from '@okta/okta-react';
