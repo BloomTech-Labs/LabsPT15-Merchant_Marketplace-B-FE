@@ -8,8 +8,8 @@ import {
 } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { ProfileListPage } from '../components/pages/ProfileList';
-jest.mock('../api', () => {
+import { ProfileListPage } from '../pages/ProfileList';
+jest.mock('../services/api', () => {
   return { getProfileData: () => Promise.resolve([]) };
 });
 jest.mock('@okta/okta-react', () => ({

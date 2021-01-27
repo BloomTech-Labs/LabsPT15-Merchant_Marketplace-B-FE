@@ -1,9 +1,8 @@
 import React from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 
-import { getProfileData } from '../../api';
-
 import { List } from '../../components/common';
+import { getProfileData } from '../../services/api';
 
 import RenderProfileListPage from './RenderProfileListPage';
 
