@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Badge } from 'antd';
-import { Button } from '../../common';
+import { Button } from '..';
 import styled from 'styled-components';
 import { useOktaAuth } from '@okta/okta-react';
 
