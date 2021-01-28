@@ -5,7 +5,7 @@ import NewItem from '../../components/inventory/newItem/main_info';
 import Specifications from '../../components/inventory/newItem/specifications';
 import AddPhotos from '../../components/inventory/newItem/photos';
 import Finalize from '../../components/inventory/newItem/review_product';
-import ProgressBar from '../../components/common/progressBar/progressBar';
+import { ProgressBar } from '../../components/common/progressBar';
 import { NavBar } from '../../components/common/NavBar';
 import { addProduct } from '../../state/actions/index';
 import { connect } from 'react-redux';
