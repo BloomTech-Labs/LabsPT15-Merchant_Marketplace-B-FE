@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
-import './FormButton.styles.css';
-
-const FormButton = ({
+export const FormButton = ({
   setProgress,
   slider,
   progressPercent,
@@ -48,4 +47,16 @@ const FormButton = ({
   );
 };
 
-export default FormButton;
+const StyledFormButton = styled.div`
+  .Btn_Container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .NextBtn {
+    background-color: lightgray;
+    border: 1px solid black;
+  }
+  .CancellBtn {
+    border: 1px solid black;
+  }
+`;
