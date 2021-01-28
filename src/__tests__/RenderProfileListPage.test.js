@@ -1,7 +1,7 @@
 import React from 'react';
-import RenderProfileListPage from '../components/pages/ProfileList/RenderProfileListPage';
 import { render } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import RenderProfileListPage from '../pages/ProfileList/RenderProfileListPage';
 
 test('loads a profile list', () => {
   const data = [{ id: '1234', name: 'item' }];

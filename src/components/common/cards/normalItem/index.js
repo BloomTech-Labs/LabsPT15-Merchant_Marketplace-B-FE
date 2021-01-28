@@ -1,6 +1,6 @@
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useEffect, useState } from 'react';
-import { getDSData } from '../../../../api';
+import { getDSData } from '../../../../services/api';
 import './itemCardStyles.css';
 
 function ItemCard({ name, description, price, image, count }) {
