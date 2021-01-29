@@ -26,3 +26,5 @@ const StyledCustomerSection = styled.div`
     justify-content: space-between;
   }
 `;
+
+// This comment is to commit the change to the folder name so they are uniform.

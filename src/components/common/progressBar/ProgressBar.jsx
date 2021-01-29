@@ -16,3 +16,5 @@ const StyledProgressBar = styled.div`
     max-width: 500px;
   }
 `;
+
+// This comment is to commit the change to the folder name so they are uniform.

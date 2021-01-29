@@ -37,3 +37,5 @@ const StyledDashboard = styled.div`
     padding: 10px;
   }
 `;
+
+// This comment is to commit the change to the folder name so they are uniform.
