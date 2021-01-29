@@ -5,6 +5,7 @@ import { OrderSection } from '../OrderSection';
 import { CustomerSection } from '../CustomerSection';
 
 export function Dashboard() {
+  console.log('placeholder');
   return (
     <StyledDashboard className="dashboard">
       <div className="dashItem">

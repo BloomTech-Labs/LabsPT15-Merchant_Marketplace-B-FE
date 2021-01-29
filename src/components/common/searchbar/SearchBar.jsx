@@ -25,7 +25,7 @@ export function SearchBar({ searchVisible, setData }) {
       setInView('inView');
     }
   });
-
+  console.log('placeholder');
   return (
     <StyledSearchBar className={inView}>
       <div className="searchOuter">

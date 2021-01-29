@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { OrderCard } from '../../common/OrderCard';
 
 export function OrderSection() {
+  console.log('placeholder');
   return (
     <>
       <h2>Orders</h2>

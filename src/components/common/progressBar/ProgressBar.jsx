@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Progress } from 'antd';
 
 export function ProgressBar(props) {
+  console.log('placeholder');
   return (
     <StyledProgressBar className="progressContainer">
       <Progress percent={props.percent} status={props.status} />

@@ -4,6 +4,7 @@ import { WechatOutlined, PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 export function CustomerSection() {
+  console.log('placeholder');
   return (
     <StyledCustomerSection>
       <div className="customerHeader">

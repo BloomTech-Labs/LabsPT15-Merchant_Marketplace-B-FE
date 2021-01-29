@@ -2,6 +2,7 @@ import React from 'react';
 import { SmallItemCard } from '../../common/SmallItemCard';
 
 export function InvSection() {
+  console.log('placeholder');
   return (
     <>
       <h2>Inventory</h2>

@@ -9,7 +9,7 @@ export function BrowserBar() {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
   const submitHandler = () => {
-    console.log('hi');
+    console.log('placeholder');
   };
   return (
     <StyledBrowserBar className="search-bar" onFinish={submitHandler}>

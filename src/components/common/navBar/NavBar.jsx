@@ -6,7 +6,7 @@ import { useOktaAuth } from '@okta/okta-react';
 
 export function NavBar({ searchVisible, data, setData }) {
   const { authState, authService } = useOktaAuth();
-
+  console.log('placeholder');
   return (
     <StyledNavBar className="nav-container">
       <div className="nav">
