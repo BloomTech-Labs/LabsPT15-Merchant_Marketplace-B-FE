@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import InvSection from '../InvSection';
-import OrderSection from '../OrderSection';
-import CustomerSection from '../CustomerSection';
+import { InvSection } from '../InvSection';
+import { OrderSection } from '../OrderSection';
+import { CustomerSection } from '../CustomerSection';
 
 export function Dashboard() {
   return (

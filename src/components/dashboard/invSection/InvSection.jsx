@@ -1,5 +1,5 @@
 import React from 'react';
-import SmallItemCard from '../../common/SmallItemCard';
+import { SmallItemCard } from '../../common/SmallItemCard';
 
 export function InvSection() {
   return (

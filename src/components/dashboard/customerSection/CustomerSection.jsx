@@ -1,5 +1,5 @@
 import React from 'react';
-import SmallItemCard from '../../common/SmallItemCard';
+import { SmallItemCard } from '../../common/SmallItemCard';
 import { WechatOutlined, PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
