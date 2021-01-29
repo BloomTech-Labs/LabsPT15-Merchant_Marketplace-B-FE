@@ -8,9 +8,7 @@ export function BrowserBar() {
   const searchHandle = e => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
-  const submitHandler = () => {
-    console.log('hi');
-  };
+  const submitHandler = () => {};
   return (
     <StyledBrowserBar className="search-bar" onFinish={submitHandler}>
       <div className="location">
