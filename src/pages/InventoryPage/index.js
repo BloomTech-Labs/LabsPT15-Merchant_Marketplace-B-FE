@@ -5,9 +5,8 @@ import NewItem from '../../components/inventory/newItem/main_info';
 import Specifications from '../../components/inventory/newItem/specifications';
 import { AddPhotos } from '../../components/inventory/newItem/photos';
 import Finalize from '../../components/inventory/newItem/review_product';
-import ProgressBar from '../../components/common/progressBar/progressBar';
+import { ProgressBar } from '../../components/common/ProgressBar';
 import { NavBar } from '../../components/common/NavBar';
-import { useOktaAuth } from '@okta/okta-react';
 import { useFetch } from '../../hooks/useFetch';
 
 export function Inventory() {
