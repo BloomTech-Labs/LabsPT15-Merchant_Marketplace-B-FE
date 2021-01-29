@@ -14,29 +14,23 @@ import { NotFoundPage } from './pages/NotFound';
 
 import { LoginPage } from './pages/Login';
 import { config } from './services/okta/oktaConfig';
-import reducer from './state/reducers';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import Landing from './pages/Landing/Landing';
 
 // Seller Imports
 import SellerProfile from './pages/SellerProfilePage';
-import Inventory from './pages/InventoryPage';
-import CurrentInventory from './pages/CurrentInventoryPage';
+import { Inventory } from './pages/InventoryPage';
+import { CurrentInventory } from './pages/CurrentInventoryPage';
 import { ProductPage } from './pages/ProductPage';
-import { TestItemImageUpload } from './components/common';
-
-const store = createStore(reducer, compose(applyMiddleware(thunk)));
+import { AuthProvier } from './contexts/auth/AuthProvider';
 
 ReactDOM.render(
-  <Provider store={store}>
+  <AuthProvier>
     <Router>
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </Router>
-  </Provider>,
+  </AuthProvier>,
   document.getElementById('root')
 );
 
@@ -75,11 +69,6 @@ function App() {
           render={routeProps => {
             return <ProductPage match={routeProps.match} />;
           }}
-        />
-        <SecureRoute
-          exact
-          path="/test_image_upload"
-          component={TestItemImageUpload}
         />
         <Route component={NotFoundPage} />
       </Switch>
