@@ -1,9 +1,9 @@
 import { useOktaAuth } from '@okta/okta-react';
 import React, { useEffect, useState } from 'react';
-import { getDSData } from '../../../../services/api';
-import './itemCardStyles.css';
+import { getDSData } from '../../../services/api';
+import styled from 'styled-components';
 
-function ItemCard({ name, description, price, image, count }) {
+export function ItemCard({ name, description, price, image, count }) {
   const [img, setImg] = useState('');
   const { authState } = useOktaAuth();
   let dollars = price / 100;
@@ -19,7 +19,7 @@ function ItemCard({ name, description, price, image, count }) {
   }, []);
 
   return (
-    <div className="cardContainer">
+    <StyledItemCard className="cardContainer">
       <img src={img} className="cardImage" />
       <div className="cardDesc">
         <h2 className="descText">{name}</h2>
@@ -35,8 +35,38 @@ function ItemCard({ name, description, price, image, count }) {
           <h2 style={{ color: 'red' }}>QTY: {count}</h2>
         )}
       </div>
-    </div>
+    </StyledItemCard>
   );
 }
 
-export default ItemCard;
+const StyledItemCard = styled.div`
+  .cardContainer {
+    height: 130px;
+    border-bottom: solid lightgray 1px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    margin: 10px 0 10px 0;
+  }
+  .cardImage {
+    width: 150px;
+    height: 120px;
+    border-radius: 6px;
+    object-fit: contain;
+  }
+  .cardDesc {
+    width: 60%;
+    max-width: 120px;
+    overflow-y: hidden;
+    max-width: 400px;
+    font-size: 0.75rem;
+  }
+  .descText {
+    margin-bottom: 0.125rem;
+    color: black;
+    text-decoration: none;
+  }
+  .cardPrice {
+    margin-top: 10%;
+  }
+`;

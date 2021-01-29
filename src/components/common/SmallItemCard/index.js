@@ -1,0 +1,1 @@
+export { SmallItemCard } from './SmallItemCard';

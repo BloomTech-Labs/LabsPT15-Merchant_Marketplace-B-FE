@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ItemCard from '../../common/cards/normalItem';
+import ItemCard from '../../components/common/ItemCard';
 import NavBar from '../../components/common/NavBar';
 import { connect } from 'react-redux';
 import { fetchProducts } from '../../../state/actions/index';
