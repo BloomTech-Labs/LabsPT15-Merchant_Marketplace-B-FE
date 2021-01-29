@@ -8,9 +8,7 @@ export function BrowserBar() {
   const searchHandle = e => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
-  const submitHandler = () => {
-    console.log('placeholder');
-  };
+  const submitHandler = () => {};
   return (
     <StyledBrowserBar className="search-bar" onFinish={submitHandler}>
       <div className="location">
@@ -60,5 +58,3 @@ const StyledBrowserBar = styled.form`
     }
   }
 `;
-
-// This comment is to commit the change to the folder name so they are uniform.

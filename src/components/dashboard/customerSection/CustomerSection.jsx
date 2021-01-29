@@ -4,7 +4,6 @@ import { WechatOutlined, PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 export function CustomerSection() {
-  console.log('placeholder');
   return (
     <StyledCustomerSection>
       <div className="customerHeader">
@@ -27,5 +26,3 @@ const StyledCustomerSection = styled.div`
     justify-content: space-between;
   }
 `;
-
-// This comment is to commit the change to the folder name so they are uniform.

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Progress } from 'antd';
 
 export function ProgressBar(props) {
-  console.log('placeholder');
   return (
     <StyledProgressBar className="progressContainer">
       <Progress percent={props.percent} status={props.status} />
@@ -17,5 +16,3 @@ const StyledProgressBar = styled.div`
     max-width: 500px;
   }
 `;
-
-// This comment is to commit the change to the folder name so they are uniform.

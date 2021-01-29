@@ -25,7 +25,7 @@ export function SearchBar({ searchVisible, setData }) {
       setInView('inView');
     }
   });
-  console.log('placeholder');
+
   return (
     <StyledSearchBar className={inView}>
       <div className="searchOuter">
@@ -91,5 +91,3 @@ const StyledSearchBar = styled.div`
     color: white;
   }
 `;
-
-// This comment is to commit the change to the folder name so they are uniform.

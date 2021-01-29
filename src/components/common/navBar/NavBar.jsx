@@ -6,7 +6,7 @@ import { useOktaAuth } from '@okta/okta-react';
 
 export function NavBar({ searchVisible, data, setData }) {
   const { authState, authService } = useOktaAuth();
-  console.log('placeholder');
+
   return (
     <StyledNavBar className="nav-container">
       <div className="nav">
@@ -69,5 +69,3 @@ const StyledNavBar = styled.nav`
     padding-right: 10%;
   }
 `;
-
-// This comment is to commit the change to the folder name so they are uniform.

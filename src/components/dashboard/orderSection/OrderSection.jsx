@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { OrderCard } from '../../common/OrderCard';
 
 export function OrderSection() {
-  console.log('placeholder');
   return (
     <>
       <h2>Orders</h2>
@@ -29,5 +28,3 @@ export function OrderSection() {
     </>
   );
 }
-
-// This comment is to commit the change to the folder name so they are uniform.

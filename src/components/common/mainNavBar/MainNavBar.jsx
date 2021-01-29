@@ -7,7 +7,7 @@ import { useOktaAuth } from '@okta/okta-react';
 
 export function MainNavBar() {
   const { authState, authService } = useOktaAuth();
-  console.log('placeholder');
+
   return (
     <StyledMainNavBar className="nav-bar">
       {/* logo */}
@@ -61,5 +61,3 @@ const StyledMainNavBar = styled.nav`
     font-size: smaller;
   }
 `;
-
-// This comment is to commit the change to the folder name so they are uniform.

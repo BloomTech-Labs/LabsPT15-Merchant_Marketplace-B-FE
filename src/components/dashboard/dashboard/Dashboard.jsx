@@ -5,7 +5,6 @@ import { OrderSection } from '../OrderSection';
 import { CustomerSection } from '../CustomerSection';
 
 export function Dashboard() {
-  console.log('placeholder');
   return (
     <StyledDashboard className="dashboard">
       <div className="dashItem">
@@ -38,5 +37,3 @@ const StyledDashboard = styled.div`
     padding: 10px;
   }
 `;
-
-// This comment is to commit the change to the folder name so they are uniform.
