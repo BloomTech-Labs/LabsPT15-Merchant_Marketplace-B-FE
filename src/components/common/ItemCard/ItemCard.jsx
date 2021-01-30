@@ -17,12 +17,12 @@ export function ItemCard({ name, description, price, imageId, count }) {
 
       asyncFetch();
     },
-    [imageId]
+    [imageId, get]
   );
 
   return (
     <StyledItemCard className="cardContainer">
-      <img src={img} className="cardImage" />
+      <img src={img} className="cardImage" alt="product" />
       <div className="cardDesc">
         <h2 className="descText">{name}</h2>
         <p className="descText" activeStyle={{ color: 'black' }}>

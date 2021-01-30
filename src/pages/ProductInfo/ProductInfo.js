@@ -6,17 +6,18 @@ import { useFetch } from '../../hooks/useFetch';
 export const ProductInfo = ({ item }) => {
   const [img, setImg] = useState('');
   const { get } = useFetch();
+  const itemId = item?.id;
 
   useEffect(
     function fetchImg() {
       async function asyncFetch() {
-        const res = await get(`photo/${item?.id}`);
+        const res = await get(`photo/${itemId}`);
         setImg(res.data[0]['url']);
       }
 
       asyncFetch();
     },
-    [item?.id]
+    [itemId, get]
   );
 
   let dollars = item?.price_in_cents / 100;
@@ -24,7 +25,7 @@ export const ProductInfo = ({ item }) => {
     <div className="product-page">
       <div className="product-container">
         <div>
-          <img src={img} />
+          <img src={img} alt="main product" />
         </div>
 
         <div className="item">
