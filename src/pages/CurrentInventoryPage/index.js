@@ -5,24 +5,29 @@ import { Link } from 'react-router-dom';
 import { NavBar } from '../../components/common/NavBar';
 import SearchResults from '../../components/inventory/SearchResults/searchResults';
 import useSearch from '../../hooks/useSearch';
-import { useAuth } from '../../contexts/auth/AuthProvider';
 import { useFetch } from '../../hooks/useFetch';
+import { useOktaId } from '../../hooks/useOktaId';
 
 export function CurrentInventory() {
   const [searchData, setSearchData] = useState({});
   const [inventory, setInventory] = useState([]);
 
-  const { oktaId } = useAuth();
+  const { oktaId } = useOktaId();
   const { get } = useFetch();
 
-  useEffect(function fetchInventory() {
-    async function asyncFetch() {
-      const res = await get(`items/profile/${oktaId}`);
-      setInventory(res.data);
-    }
+  useEffect(
+    function fetchInventory() {
+      async function asyncFetch() {
+        const res = await get(`items/profile/${oktaId}`);
+        setInventory(res.data);
+      }
 
-    asyncFetch();
-  }, []);
+      if (oktaId) {
+        asyncFetch();
+      }
+    },
+    [oktaId]
+  );
 
   const displayedData = useSearch(inventory, 'name', searchData);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import uploadcare from 'uploadcare-widget';
 
-import FormButton from '../../common/FormButton/FormButton';
+import { FormButton } from '../../common/FormButton/FormButton';
 import { useFetch } from '../../../hooks/useFetch';
 
 export function AddPhotos({ setProgress, slider, setItem }) {

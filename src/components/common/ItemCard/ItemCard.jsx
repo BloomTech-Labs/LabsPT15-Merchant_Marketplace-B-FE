@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useFetch } from '../../../../hooks/useFetch';
-import './itemCardStyles.css';
+import { useFetch } from '../../../hooks/useFetch';
 
 export function ItemCard({ name, description, price, imageId, count }) {
   const [img, setImg] = useState('');

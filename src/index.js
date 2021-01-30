@@ -21,16 +21,13 @@ import SellerProfile from './pages/SellerProfilePage';
 import { Inventory } from './pages/InventoryPage';
 import { CurrentInventory } from './pages/CurrentInventoryPage';
 import { ProductPage } from './pages/ProductPage';
-import { AuthProvier } from './contexts/auth/AuthProvider';
 
 ReactDOM.render(
-  <AuthProvier>
-    <Router>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Router>
-  </AuthProvier>,
+  <Router>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Router>,
   document.getElementById('root')
 );
 

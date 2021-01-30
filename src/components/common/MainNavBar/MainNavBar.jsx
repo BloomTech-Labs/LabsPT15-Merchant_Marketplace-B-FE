@@ -8,6 +8,8 @@ import { useOktaAuth } from '@okta/okta-react';
 export function MainNavBar() {
   const { authState, authService } = useOktaAuth();
 
+  console.log({ authService });
+
   return (
     <StyledMainNavBar className="nav-bar">
       {/* logo */}
