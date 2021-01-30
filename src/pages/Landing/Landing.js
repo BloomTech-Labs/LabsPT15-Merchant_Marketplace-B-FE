@@ -1,7 +1,7 @@
 import React from 'react';
-import MainNavBar from '../../components/common/MainNavBar';
+import { MainNavBar } from '../../components/common/MainNavBar';
 import './landing.css';
-import BrowserBar from '../../components/common/BrowserBar';
+import { BrowserBar } from '../../components/common/BrowserBar';
 
 const Landing = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Cascader } from 'antd';
-import FormButton from '../../common/FormButton/FormButton';
+import { FormButton } from '../../common/FormButton/FormButton';
 
 function NewItem({ setProgress, slider, setData }) {
   const [form] = Form.useForm();

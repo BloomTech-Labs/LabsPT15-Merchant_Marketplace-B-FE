@@ -1,5 +1,5 @@
 import React from 'react';
-import FormButton from '../../common/FormButton/FormButton';
+import { FormButton } from '../../common/FormButton/FormButton';
 import { Form, Input, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 
