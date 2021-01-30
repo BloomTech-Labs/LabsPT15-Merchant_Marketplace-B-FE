@@ -1,22 +1,23 @@
-import { useOktaAuth } from '@okta/okta-react';
 import React, { useEffect, useState } from 'react';
-import { getDSData } from '../../services/api';
 import { Rate, Avatar, Tag } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
+import { useFetch } from '../../hooks/useFetch';
 
-const ProductInfo = ({ item }) => {
+export const ProductInfo = ({ item }) => {
   const [img, setImg] = useState('');
-  const { authState } = useOktaAuth();
-  const imgGet = id => {
-    getDSData(`${process.env.REACT_APP_API_URI}photo/${id}`, authState)
-      .then(res => setImg(res[0]['url']))
-      .catch(err => {
-        console.log('Img get fail.');
-      });
-  };
-  useEffect(() => {
-    imgGet(item?.id);
-  }, []);
+  const { get } = useFetch();
+
+  useEffect(
+    function fetchImg() {
+      async function asyncFetch() {
+        const res = await get(`photo/${item?.id}`);
+        setImg(res.data[0]['url']);
+      }
+
+      asyncFetch();
+    },
+    [item?.id]
+  );
 
   let dollars = item?.price_in_cents / 100;
   return (
@@ -60,5 +61,3 @@ const ProductInfo = ({ item }) => {
     </div>
   );
 };
-
-export default ProductInfo;

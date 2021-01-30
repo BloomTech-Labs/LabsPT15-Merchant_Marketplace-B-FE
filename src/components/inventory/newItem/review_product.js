@@ -1,6 +1,6 @@
 import React from 'react';
 import PopContent from './popContent';
-import ProductInfo from '../../../pages/ProductInfo/ProductInfo';
+import { ProductInfo } from '../../../pages/ProductInfo/ProductInfo';
 import FormButton from '../../common/FormButton/FormButton';
 
 function Finalize({ setProgress, slider, formCosolidate, setStatus }) {

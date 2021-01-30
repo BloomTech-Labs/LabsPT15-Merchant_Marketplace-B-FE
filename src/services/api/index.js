@@ -63,4 +63,11 @@ const postData = (url, newData, authState) => {
     .catch(err => err);
 };
 
-export { sleep, getExampleData, getProfileData, getDSData, postData };
+export {
+  sleep,
+  getExampleData,
+  getProfileData,
+  getDSData,
+  postData,
+  getAuthHeader,
+};

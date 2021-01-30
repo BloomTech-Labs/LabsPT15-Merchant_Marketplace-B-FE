@@ -4,6 +4,7 @@ import useSearch from '../../../hooks/useSearch';
 import { NavLink } from 'react-router-dom';
 function SearchResults({ data, filter }) {
   const searchData = useSearch(data, 'name', filter);
+
   return (
     <div>
       {searchData.map(item => (
@@ -15,7 +16,7 @@ function SearchResults({ data, filter }) {
             price={item.price_in_cents}
             description={item.description}
             count={item.quantity_available}
-            image={item.id}
+            imageId={item.id}
           />
         </NavLink>
       ))}

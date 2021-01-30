@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink, Link } from 'react-router-dom';
-import { SearchBar } from '../SearchBar';
+import { SearchBar } from '../SearchBar/SearchBar';
 import { useOktaAuth } from '@okta/okta-react';
 
 export function NavBar({ searchVisible, data, setData }) {

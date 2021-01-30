@@ -1,34 +1,29 @@
 import React, { useRef, useState } from 'react';
-import { Button, Carousel } from 'antd';
+import { Carousel } from 'antd';
 import './inventoryStyles.css';
 import NewItem from '../../components/inventory/newItem/main_info';
 import Specifications from '../../components/inventory/newItem/specifications';
-import AddPhotos from '../../components/inventory/newItem/photos';
+import { AddPhotos } from '../../components/inventory/newItem/photos';
 import Finalize from '../../components/inventory/newItem/review_product';
 import { ProgressBar } from '../../components/common/ProgressBar';
 import { NavBar } from '../../components/common/NavBar';
-import { addProduct } from '../../state/actions/index';
-import { connect } from 'react-redux';
-import { useOktaAuth } from '@okta/okta-react';
+import { useFetch } from '../../hooks/useFetch';
 
-function Inventory({ status, addProduct }) {
-  const { authState } = useOktaAuth();
-  // Final Data State
-  const [newItemData, setNewItemData] = useState({});
-
+export function Inventory() {
   // State for each form section
   const [mainInfo, setMainInfo] = useState({});
   const [specForm, setSpecForm] = useState({});
   const [photos, setPhotos] = useState({});
 
+  const { post } = useFetch();
+
   const formCosolidate = () => {
-    let completeObject = {
+    const completeObject = {
       ...mainInfo,
       ...specForm,
       ...photos,
     };
-    setNewItemData(completeObject); //// I will review this later, I dont think we need a state here, we can just pass the object to the addProduct action-Pedro
-    addProduct(newItemData, authState);
+    post('item', completeObject);
   };
 
   // Progress Bar Sync
@@ -68,23 +63,7 @@ function Inventory({ status, addProduct }) {
             />
           </Carousel>
         </div>
-
-        <Button
-          onClick={() => {
-            console.log(mainInfo);
-            console.log(specForm);
-            console.log(photos);
-            console.log('final object:', newItemData);
-          }}
-        >
-          Console Log
-        </Button>
       </div>
     </>
   );
 }
-const mapStateToProps = state => ({
-  status: state.addProduct.getAddProductStatus, //We could use this status to see the status of the api call post request
-});
-
-export default connect(mapStateToProps, { addProduct })(Inventory);

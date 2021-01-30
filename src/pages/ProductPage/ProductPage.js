@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavBar } from '../../components/common/NavBar';
-import ProductInfo from '../ProductInfo/ProductInfo';
-import { connect } from 'react-redux';
+import { ProductInfo } from '../ProductInfo/ProductInfo';
 import './productPage.css';
+import { useFetch } from '../../hooks/useFetch';
+import { useAuth } from '../../contexts/auth/AuthProvider';
 
-const ProductPage = props => {
+export const ProductPage = props => {
+  const [inventory, setInventory] = useState([]);
+
+  const { oktaId } = useAuth();
+  const { get } = useFetch();
+
+  useEffect(function fetchInventory() {
+    async function asyncFetch() {
+      const res = await get(`items/profile/${oktaId}`);
+      setInventory(res.data);
+    }
+
+    asyncFetch();
+  }, []);
+
   const paramItemId = props.match.params.id;
-
-  const item = props.inventory.find(item => {
+  const item = inventory.find(item => {
     return item.id === Number(paramItemId);
   });
   return (
@@ -17,10 +31,3 @@ const ProductPage = props => {
     </div>
   );
 };
-
-const mapStateToProps = state => ({
-  inventory: state.products.products,
-  getProductsStatus: state.products.getProductsStatus,
-});
-
-export default connect(mapStateToProps, {})(ProductPage);
