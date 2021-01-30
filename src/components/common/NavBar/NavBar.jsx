@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { NavLink, Link } from 'react-router-dom';
-import { useOktaAuth } from '@okta/okta-react';
 import { SearchBar } from '../SearchBar/SearchBar';
 
 export function NavBar({ searchVisible, data, setData }) {
-  const { authState, authService } = useOktaAuth();
-
   return (
     <StyledNavBar className="nav-container">
       <div className="nav">

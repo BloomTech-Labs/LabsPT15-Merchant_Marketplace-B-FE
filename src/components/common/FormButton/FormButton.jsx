@@ -13,7 +13,7 @@ export const FormButton = ({
 }) => {
   const history = useHistory();
   return (
-    <div className="Btn_Container">
+    <StyledFormButton>
       <Button
         className="CancellBtn"
         onClick={() => history.push('/myprofile/inventory')}
@@ -43,15 +43,14 @@ export const FormButton = ({
           {text}
         </Button>
       )}
-    </div>
+    </StyledFormButton>
   );
 };
 
 const StyledFormButton = styled.div`
-  .Btn_Container {
-    display: flex;
-    justify-content: space-between;
-  }
+  display: flex;
+  justify-content: space-between;
+
   .NextBtn {
     background-color: lightgray;
     border: 1px solid black;

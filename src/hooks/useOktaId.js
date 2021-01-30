@@ -1,5 +1,5 @@
 import { useOktaAuth } from '@okta/okta-react/src/OktaContext';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useOktaId() {
   const [oktaId, setOktaId] = useState(null);

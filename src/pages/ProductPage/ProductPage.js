@@ -22,7 +22,7 @@ export const ProductPage = props => {
         asyncFetch();
       }
     },
-    [oktaId]
+    [oktaId, get]
   );
 
   const paramItemId = props.match.params.id;

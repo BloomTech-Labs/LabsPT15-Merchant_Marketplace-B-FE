@@ -24,7 +24,7 @@ export function SearchBar({ searchVisible, setData }) {
     if (searchVisible === false) {
       setInView('inView');
     }
-  });
+  }, [setInView, searchVisible]);
 
   return (
     <StyledSearchBar className={inView}>

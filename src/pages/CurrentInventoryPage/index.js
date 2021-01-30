@@ -26,7 +26,7 @@ export function CurrentInventory() {
         asyncFetch();
       }
     },
-    [oktaId]
+    [oktaId, get]
   );
 
   const displayedData = useSearch(inventory, 'name', searchData);
