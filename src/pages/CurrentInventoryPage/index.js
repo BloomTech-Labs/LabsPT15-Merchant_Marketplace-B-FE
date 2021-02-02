@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { NavBar } from '../../components/common/NavBar';
 import SearchResults from '../../components/inventory/SearchResults/searchResults';
 import useSearch from '../../hooks/useSearch';
 import { useFetch } from '../../hooks/useFetch';
 import { useOktaId } from '../../hooks/useOktaId';
+import { Layout } from '../../components/common/Layout/Layout';
 
 export function CurrentInventory() {
-  const [searchData, setSearchData] = useState({});
+  const [searchData] = useState({});
   const [inventory, setInventory] = useState([]);
 
   const { oktaId } = useOktaId();
@@ -32,8 +32,7 @@ export function CurrentInventory() {
   const displayedData = useSearch(inventory, 'name', searchData);
 
   return (
-    <>
-      <NavBar searchVisible={false} setData={setSearchData} />
+    <Layout>
       <div className="outerContainer">
         <div className="contents">
           <SearchResults data={displayedData} filter={searchData} />
@@ -42,6 +41,6 @@ export function CurrentInventory() {
           </Link>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }
