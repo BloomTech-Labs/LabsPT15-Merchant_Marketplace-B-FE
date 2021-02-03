@@ -21,11 +21,17 @@ import SellerProfile from './pages/SellerProfilePage';
 import { Inventory } from './pages/InventoryPage';
 import { CurrentInventory } from './pages/CurrentInventoryPage';
 import { ProductPage } from './pages/ProductPage';
+import { GlobalStyles } from './styles/GlobalStyles';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
 
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+        <GlobalStyles />
+      </ThemeProvider>
     </React.StrictMode>
   </Router>,
   document.getElementById('root')

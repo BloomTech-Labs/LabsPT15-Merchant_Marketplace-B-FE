@@ -6,8 +6,8 @@ import Specifications from '../../components/inventory/newItem/specifications';
 import { AddPhotos } from '../../components/inventory/newItem/photos';
 import Finalize from '../../components/inventory/newItem/review_product';
 import { ProgressBar } from '../../components/common/ProgressBar';
-import { NavBar } from '../../components/common/NavBar';
 import { useFetch } from '../../hooks/useFetch';
+import { Layout } from '../../components/common/Layout/Layout';
 
 export function Inventory() {
   // State for each form section
@@ -34,8 +34,7 @@ export function Inventory() {
   const slider = useRef(null);
 
   return (
-    <>
-      <NavBar />
+    <Layout>
       <div className="outerContainer">
         <div className="formContainer">
           <ProgressBar percent={progressPoint} status={progressStatus} />
@@ -64,6 +63,6 @@ export function Inventory() {
           </Carousel>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

@@ -8,9 +8,10 @@ export function BrowserBar() {
   const searchHandle = e => {
     setSearch({ ...search, [e.target.name]: e.target.value });
   };
+
   const submitHandler = () => {};
   return (
-    <StyledBrowserBar className="search-bar" onFinish={submitHandler}>
+    <StyledBrowserBar className="search-bar">
       <div className="location">
         {' '}
         <Input

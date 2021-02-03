@@ -1,68 +1,66 @@
-import React from 'react';
+import { useOktaAuth } from '@okta/okta-react';
+import React, { useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { NavLink, Link } from 'react-router-dom';
-import { SearchBar } from '../SearchBar/SearchBar';
+import { useAuthState } from '../../../hooks/useAuthState';
+import { SearchIcon } from '../../icons';
+import { Button } from '../Button';
+import { Input } from '../Input';
 
-export function NavBar({ searchVisible, data, setData }) {
+export function NavBar() {
+  const { authService } = useOktaAuth();
+  const { isAuthenticated } = useAuthState();
+
+  const login = useCallback(() => authService.login('/myprofile'), [
+    authService,
+  ]);
+
+  const logout = useCallback(() => authService.logout('/'), [authService]);
+
   return (
-    <StyledNavBar className="nav-container">
-      <div className="nav">
-        <div className="logo">
-          <NavLink to="/" activeStyle={{ color: 'black' }}>
-            <span style={{ color: 'rebeccapurple' }}>MERCHANT</span> MARKETPLACE
-          </NavLink>
-        </div>
-        <Link to="/myprofile/inventory">Inventory</Link>
-        <Link>Orders</Link>
-        <Link>Payment</Link>
-        <Link>Messages</Link>
-      </div>
-      <SearchBar searchVisible={searchVisible} setData={setData} data={data} />
-    </StyledNavBar>
+    <StyledHeader>
+      <StyledFlex>
+        <StyledLink to="/">mm.</StyledLink>
+        <Input placeholder="Search..." name="search" icon={SearchIcon} />
+      </StyledFlex>
+      {isAuthenticated ? (
+        <Button onClick={logout}>Logout</Button>
+      ) : (
+        <Button onClick={login}>Login</Button>
+      )}
+    </StyledHeader>
   );
 }
 
-const StyledNavBar = styled.nav`
-  .nav-container {
-    background-color: rebeccapurple;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 4;
-    align-items: center;
-  }
-  .nav {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
+const StyledHeader = styled.header`
+  grid-area: header;
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+`;
 
-  .logo {
-    width: 140px;
-    height: 50px;
-    background-color: white;
-    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-    margin-left: 10%;
-    padding-left: 40px;
-    font-weight: 400;
-    color: black;
-    font-size: smaller;
-  }
+const StyledFlex = styled.div`
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: max-content 500px;
+`;
 
-  .logo > span {
-    color: rebeccapurple;
-  }
-  .nav > a {
-    color: white;
-    margin-left: 15px;
-  }
-  .nav > a:hover {
-    font-weight: bold;
-    color: white;
-  }
+const StyledLink = styled(Link)`
+  width: 92px;
+  height: 48px;
+  background: #c8c9ce;
+  border-radius: 12px;
 
-  .nav > a:last-child {
-    margin-left: auto;
-    padding-right: 10%;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  color: #383f51;
 `;
