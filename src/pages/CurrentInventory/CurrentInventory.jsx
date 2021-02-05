@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { ProductInfo } from '../ProductInfo/ProductInfo';
-import './productPage.css';
+import { Button } from 'antd';
+import { Link } from 'react-router-dom';
+
+import { SearchResults } from '../../components/inventory/SearchResults';
+import useSearch from '../../hooks/useSearch';
 import { useFetch } from '../../hooks/useFetch';
 import { useOktaId } from '../../hooks/useOktaId';
 import { Layout } from '../../components/common/Layout/Layout';
 
-export const ProductPage = props => {
+export function CurrentInventory() {
+  const [searchData] = useState({});
   const [inventory, setInventory] = useState([]);
 
   const { oktaId } = useOktaId();
@@ -25,13 +29,18 @@ export const ProductPage = props => {
     [oktaId, get]
   );
 
-  const paramItemId = props.match.params.id;
-  const item = inventory.find(item => {
-    return item.id === Number(paramItemId);
-  });
+  const displayedData = useSearch(inventory, 'name', searchData);
+
   return (
     <Layout>
-      <ProductInfo item={item} />
+      <div className="outerContainer">
+        <div className="contents">
+          <SearchResults data={displayedData} filter={searchData} />
+          <Link to="/myprofile/inventory/additem">
+            <Button>+Add Item</Button>
+          </Link>
+        </div>
+      </div>
     </Layout>
   );
-};
+}

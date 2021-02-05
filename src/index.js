@@ -14,12 +14,12 @@ import { NotFoundPage } from './pages/NotFound';
 
 import { LoginPage } from './pages/Login';
 import { config } from './services/okta/oktaConfig';
-import Landing from './pages/Landing/Landing';
+import { Landing } from './pages/Landing/Landing';
 
 // Seller Imports
 import SellerProfile from './pages/SellerProfilePage';
-import { Inventory } from './pages/InventoryPage';
-import { CurrentInventory } from './pages/CurrentInventoryPage';
+import { InventoryPage } from './pages/InventoryPage';
+import { CurrentInventory } from './pages/CurrentInventory/CurrentInventory';
 import { ProductPage } from './pages/ProductPage';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
@@ -64,7 +64,7 @@ function App() {
         <SecureRoute
           exact
           path="/myprofile/inventory/additem"
-          component={Inventory}
+          component={InventoryPage}
         />
         <SecureRoute
           exact
