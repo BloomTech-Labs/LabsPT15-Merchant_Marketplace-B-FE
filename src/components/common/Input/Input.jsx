@@ -1,29 +1,58 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled, { css } from 'styled-components';
 
-export function Input({ label = null, icon: Icon, ...props }) {
-  return (
-    <StyledContainer>
-      {label ? <StyledLabel htmlFor={props.name}>{label}</StyledLabel> : null}
-      <StyledInputContainer>
-        {Icon ? <Icon /> : null}
-        <StyledInput {...props} Icon={Icon} />
-      </StyledInputContainer>
-    </StyledContainer>
-  );
-}
+export const Input = forwardRef(
+  ({ label = null, icon: Icon, ...props }, ref) => {
+    const isCheckbox = props.type === 'checkbox';
+
+    return (
+      <StyledContainer isCheckbox={isCheckbox}>
+        {label ? (
+          <StyledLabel htmlFor={props.name} isCheckbox={isCheckbox}>
+            {label}
+          </StyledLabel>
+        ) : null}
+        <StyledInputContainer isCheckbox={isCheckbox}>
+          {Icon ? <Icon /> : null}
+          <StyledInput
+            {...props}
+            Icon={Icon}
+            isCheckbox={isCheckbox}
+            ref={ref}
+          />
+        </StyledInputContainer>
+      </StyledContainer>
+    );
+  }
+);
 
 const StyledContainer = styled.div`
   width: 100%;
+  margin-bottom: 1rem;
+
+  ${({ isCheckbox }) =>
+    isCheckbox &&
+    css`
+      width: fit-content;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+    `}
 `;
-const StyledLabel = styled.label``;
+const StyledLabel = styled.label`
+  ${({ isCheckbox }) =>
+    isCheckbox &&
+    css`
+      margin-left: 8px;
+    `}
+`;
 const StyledInput = styled.input`
   width: 100%;
   padding: 14px 12px;
   border-radius: 12px;
   border: none;
   outline: none;
-  background-color: #e8e8e8;
+  background-color: white;
 
   font-size: 14px;
   line-height: 21px;
@@ -48,4 +77,13 @@ const StyledInputContainer = styled.div`
     left: 12px;
     transform: translateY(-50%);
   }
+
+  ${({ isCheckbox }) =>
+    isCheckbox &&
+    css`
+      width: fit-content;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `}
 `;
