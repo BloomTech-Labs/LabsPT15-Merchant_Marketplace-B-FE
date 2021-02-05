@@ -1,13 +1,12 @@
 import React from 'react';
-import { NavBar } from '../../components/common/NavBar';
+import { Layout } from '../../components/common/Layout/Layout';
 import { Dashboard } from '../../components/dashboard/Dashboard';
 
 function SellerProfile() {
   return (
-    <>
-      <NavBar />
+    <Layout>
       <Dashboard />
-    </>
+    </Layout>
   );
 }
 

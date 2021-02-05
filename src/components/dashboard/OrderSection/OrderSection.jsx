@@ -14,7 +14,7 @@ export function OrderSection() {
         price={3.33}
         itemCount={9}
       />
-      <Link className="activeLink">
+      <Link className="activeLink" to="/">
         <p className="activeLink">All Active Orders</p>
       </Link>
       <h4>Fullfiled & cancelled</h4>

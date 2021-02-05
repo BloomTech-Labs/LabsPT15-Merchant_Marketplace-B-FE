@@ -2,7 +2,8 @@ import React from 'react';
 import { ItemCard } from '../../common/ItemCard';
 import useSearch from '../../../hooks/useSearch';
 import { NavLink } from 'react-router-dom';
-function SearchResults({ data, filter }) {
+
+export function SearchResults({ data, filter }) {
   const searchData = useSearch(data, 'name', filter);
 
   return (
@@ -23,5 +24,3 @@ function SearchResults({ data, filter }) {
     </div>
   );
 }
-
-export default SearchResults;
