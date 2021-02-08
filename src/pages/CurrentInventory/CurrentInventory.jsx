@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from 'antd';
+// import { Button } from 'antd';
+import { Button } from '../../components/common/Button';
 import { Link } from 'react-router-dom';
 
-import { SearchResults } from '../../components/inventory/SearchResults';
-import useSearch from '../../hooks/useSearch';
+// import { SearchResults } from '../../components/inventory/SearchResults';
+// import useSearch from '../../hooks/useSearch';
 import { useFetch } from '../../hooks/useFetch';
 import { useOktaId } from '../../hooks/useOktaId';
 import { Layout } from '../../components/common/Layout/Layout';
+import { DataTable } from '../../components/common/DataTable';
 
 export function CurrentInventory() {
-  const [searchData] = useState({});
+  // const [searchData] = useState({});
   const [inventory, setInventory] = useState([]);
 
   const { oktaId } = useOktaId();
@@ -18,8 +20,12 @@ export function CurrentInventory() {
   useEffect(
     function fetchInventory() {
       async function asyncFetch() {
-        const res = await get(`items/profile/${oktaId}`);
-        setInventory(res.data);
+        const allStores = await get(`profiles/${oktaId}/stores`);
+        const firstStoreID = await allStores.data[0].id;
+        const firstStoreData = await get(`stores/${firstStoreID}/products`);
+        const firstStoreInventory = await firstStoreData.data;
+        setInventory([...firstStoreInventory]);
+        console.log(`set inventory, ${firstStoreInventory.length} items`);
       }
 
       if (oktaId) {
@@ -29,16 +35,21 @@ export function CurrentInventory() {
     [oktaId, get]
   );
 
-  const displayedData = useSearch(inventory, 'name', searchData);
+  // const displayedData = useSearch(inventory, 'name', searchData);
 
   return (
     <Layout>
       <div className="outerContainer">
         <div className="contents">
-          <SearchResults data={displayedData} filter={searchData} />
+          {/* <SearchResults data={inventory} filter={searchData} /> */}
           <Link to="/myprofile/inventory/additem">
             <Button>+Add Item</Button>
           </Link>
+          <DataTable
+            inputData={inventory}
+            title={'Inventory'}
+            actions={['Edit', 'List Item', 'Delete']}
+          />
         </div>
       </div>
     </Layout>
