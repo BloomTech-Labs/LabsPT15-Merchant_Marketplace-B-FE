@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useReducer,
 } from 'react';
-import { types, providerReducer, initialState } from './state';
+import { types, profileReducer, initialState } from './state';
 
 import { useFetch } from '../../hooks/useFetch';
 import { useOktaAuth } from '@okta/okta-react';
@@ -15,7 +15,7 @@ export const ProfileContext = createContext();
 export const useProfile = () => useContext(ProfileContext);
 
 export function ProfileProvider({ children }) {
-  const [state, dispatch] = useReducer(providerReducer, initialState);
+  const [state, dispatch] = useReducer(profileReducer, initialState);
 
   const { get } = useFetch();
   const { oktaId } = useOktaId();
@@ -23,26 +23,30 @@ export function ProfileProvider({ children }) {
 
   useEffect(
     function getProfile() {
-      async function asyncFetch() {
-        const res = await get(`profile/${oktaId}`);
-        dispatch({ type: types.GET_PROFILE, payload: res.data });
-      }
+      if (oktaId) {
+        async function asyncFetch() {
+          const res = await get(`profile/${oktaId}`);
+          dispatch({ type: types.GET_PROFILE, payload: res.data });
+        }
 
-      asyncFetch();
+        asyncFetch();
+      }
     },
-    [authState, authService]
+    [authState, authService, oktaId]
   );
 
   useEffect(
     function getStores() {
-      async function asyncFetch() {
-        const res = await get(`profile/${oktaId}/stores`);
-        dispatch({ type: types.GET_STORES, payload: res.data });
-      }
+      if (oktaId) {
+        async function asyncFetch() {
+          const res = await get(`profile/${oktaId}/stores`);
+          dispatch({ type: types.GET_STORES, payload: res.data });
+        }
 
-      asyncFetch();
+        asyncFetch();
+      }
     },
-    [authState, authService]
+    [authState, authService, oktaId]
   );
 
   const memoizedState = useMemo(() => ({ ...state }), [state]);
