@@ -24,6 +24,7 @@ import { ProductPage } from './pages/ProductPage';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
+import { ProfileProvider } from './contexts';
 
 ReactDOM.render(
   <Router>
@@ -50,31 +51,33 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/implicit/callback" component={LoginCallback} />
-        {/* any of the routes you need secured should be registered as SecureRoutes */}
-        <Route exact path="/" component={Landing} />
-        <SecureRoute exact path="/myprofile" component={SellerProfile} />
-        <SecureRoute
-          exact
-          path="/myprofile/inventory"
-          component={CurrentInventory}
-        />
-        <SecureRoute
-          exact
-          path="/myprofile/inventory/additem"
-          component={InventoryPage}
-        />
-        <SecureRoute
-          exact
-          path="/myprofile/inventory/productpage/:id"
-          render={routeProps => {
-            return <ProductPage match={routeProps.match} />;
-          }}
-        />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <ProfileProvider>
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <Route path="/implicit/callback" component={LoginCallback} />
+          {/* any of the routes you need secured should be registered as SecureRoutes */}
+          <Route exact path="/" component={Landing} />
+          <SecureRoute exact path="/myprofile" component={SellerProfile} />
+          <SecureRoute
+            exact
+            path="/myprofile/inventory"
+            component={CurrentInventory}
+          />
+          <SecureRoute
+            exact
+            path="/myprofile/inventory/additem"
+            component={InventoryPage}
+          />
+          <SecureRoute
+            exact
+            path="/myprofile/inventory/productpage/:id"
+            render={routeProps => {
+              return <ProductPage match={routeProps.match} />;
+            }}
+          />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </ProfileProvider>
     </Security>
   );
 }
