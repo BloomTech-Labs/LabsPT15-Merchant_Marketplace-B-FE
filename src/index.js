@@ -17,14 +17,15 @@ import { config } from './services/okta/oktaConfig';
 
 // Seller Imports
 import SellerProfile from './pages/SellerProfilePage';
-import { Inventory } from './pages/InventoryPage';
-import { CurrentInventory } from './pages/CurrentInventoryPage';
+import { InventoryPage } from './pages/InventoryPage';
+import { CurrentInventory } from './pages/CurrentInventory/CurrentInventory';
 import { ProductPage } from './pages/ProductPage';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import { NewStorePage } from './pages/NewStorePage';
 import { LandingPage } from './pages/LandingPage';
+import { ProfileProvider } from './contexts';
 
 ReactDOM.render(
   <Router>
@@ -51,32 +52,34 @@ function App() {
 
   return (
     <Security {...config} onAuthRequired={authHandler}>
-      <Switch>
-        <Route path="/login" component={LoginPage} />
-        <Route path="/implicit/callback" component={LoginCallback} />
-        {/* any of the routes you need secured should be registered as SecureRoutes */}
-        <Route exact path="/" component={LandingPage} />
-        <SecureRoute exact path="/myprofile" component={SellerProfile} />
-        <SecureRoute
-          exact
-          path="/myprofile/inventory"
-          component={CurrentInventory}
-        />
-        <SecureRoute
-          exact
-          path="/myprofile/inventory/additem"
-          component={Inventory}
-        />
-        <SecureRoute exact path="/new-store" component={NewStorePage} />
-        <SecureRoute
-          exact
-          path="/myprofile/inventory/productpage/:id"
-          render={routeProps => {
-            return <ProductPage match={routeProps.match} />;
-          }}
-        />
-        <Route component={NotFoundPage} />
-      </Switch>
+      <ProfileProvider>
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <Route path="/implicit/callback" component={LoginCallback} />
+          {/* any of the routes you need secured should be registered as SecureRoutes */}
+          <Route exact path="/" component={LandingPage} />
+          <SecureRoute exact path="/myprofile" component={SellerProfile} />
+          <SecureRoute
+            exact
+            path="/myprofile/inventory"
+            component={CurrentInventory}
+          />
+          <SecureRoute
+            exact
+            path="/myprofile/inventory/additem"
+            component={InventoryPage}
+          />
+          <SecureRoute exact path="/new-store" component={NewStorePage} />
+          <SecureRoute
+            exact
+            path="/myprofile/inventory/productpage/:id"
+            render={routeProps => {
+              return <ProductPage match={routeProps.match} />;
+            }}
+          />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </ProfileProvider>
     </Security>
   );
 }
