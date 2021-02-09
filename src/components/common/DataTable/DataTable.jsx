@@ -1,29 +1,49 @@
 import React from 'react';
-import { Table, Space, Popover } from 'antd';
+import { Table, Space, Popover, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
-const { Column } = Table;
-
-export const DataTable = ({ title, inputData, actions }) => {
+export const DataTable = ({ title, columns, inputData, actions }) => {
   const handleClick = e => {
     e.preventDefault();
-    console.log('click');
+    console.log(`${e.target.childNodes[0].data} clicked`);
   };
 
   const rowActions = (
-    <>
+    <Space size="middle" direction="vertical">
       {actions.map(item => {
         return (
-          <>
-            <a className="ant-dropdown-link" onClick={handleClick}>
-              {item}
-            </a>
-            <br />
-          </>
+          <Button
+            type="link"
+            className="ant-dropdown-link"
+            key={item}
+            onClick={handleClick}
+          >
+            {item}
+          </Button>
         );
       })}
-    </>
+    </Space>
   );
+
+  const columnLabels = columns.map(item => {
+    return {
+      title: item.split('_')[0],
+      dataIndex: item.toLowerCase(),
+      key: item.toLowerCase(),
+    };
+  });
+
+  columnLabels.push({
+    title: 'Action',
+    key: 'action',
+    render: () => (
+      <Popover content={rowActions} trigger="click" placement="bottomRight">
+        <Button type="link" className="ant-dropdown-link">
+          Actions <DownOutlined />
+        </Button>
+      </Popover>
+    ),
+  });
 
   return (
     <Table
@@ -31,27 +51,7 @@ export const DataTable = ({ title, inputData, actions }) => {
       rowKey={record => record.id}
       title={() => title}
       pagination={{ hideOnSinglePage: true }}
-    >
-      <Column title="Name" dataIndex="name" key="name" />
-      <Column title="Created At" dataIndex="created_at" key="createdAt" />
-      <Column title="Price" dataIndex="price" key="price" />
-      <Column
-        title="Action"
-        key="action"
-        render={() => (
-          <Space size="middle">
-            <Popover
-              content={rowActions}
-              trigger="click"
-              placement="bottomRight"
-            >
-              <a className="ant-dropdown-link">
-                Actions <DownOutlined />
-              </a>
-            </Popover>
-          </Space>
-        )}
-      />
-    </Table>
+      columns={columnLabels}
+    />
   );
 };

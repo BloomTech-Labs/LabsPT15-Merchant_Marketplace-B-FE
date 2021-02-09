@@ -46,8 +46,10 @@ export function CurrentInventory() {
             <Button>+Add Item</Button>
           </Link>
           <DataTable
-            inputData={inventory}
             title={'Inventory'}
+            // columns array prop must be names of fields from correct table
+            columns={['Name', 'Created_At', 'Price', 'Stock_Quantity']}
+            inputData={inventory}
             actions={['Edit', 'List Item', 'Delete']}
           />
         </div>
