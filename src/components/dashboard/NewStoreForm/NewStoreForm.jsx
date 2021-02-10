@@ -1,17 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { StyledButton, StyledForm } from '../../../styles/styled-components';
 import { ImageFormGallery } from '../../common/FormImageGallery';
 import { Input } from '../../common/Input';
+import { SearchPlaces } from '../../common/SearchPlaces';
 import { Textarea } from '../../common/Textarea';
 
 export function NewStoreForm() {
   const [images, setImages] = useState([]);
   const { register, handleSubmit, reset } = useForm();
 
+  const location = useRef();
+
+  function setLocation(place) {
+    location.current = place;
+  }
+
   function onSubmit(data) {
     console.log({ data });
+    const stringifyLocation = JSON.stringify(location.current);
+    console.log(stringifyLocation);
+    console.log(JSON.parse(stringifyLocation));
+  }
+
+  function preventEnter(e) {
+    let key = e.charCode || e.keyCode || 0;
+    if (key === 13) {
+      e.preventDefault();
+    }
   }
 
   function onFileUpload(e) {
@@ -25,7 +42,7 @@ export function NewStoreForm() {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)} onKeyPress={preventEnter}>
       <ImageFormGallery images={images} />
       <StyledFlexContainer>
         <StyledUploadButton htmlFor="file">
@@ -78,6 +95,7 @@ export function NewStoreForm() {
           name="closing_hours"
         />
       </StyledGridContainer>
+      <SearchPlaces label="Location" ref={register} setLocation={setLocation} />
       <StyledButton type="submit">Create Store</StyledButton>
     </StyledForm>
   );
