@@ -2,42 +2,41 @@ import React from 'react';
 import { Table, Space, Popover, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
-export const DataTable = ({ title, columns, inputData, actions }) => {
-  const handleClick = e => {
-    e.preventDefault();
-    console.log(`${e.target.childNodes[0].data} clicked`);
-  };
-
-  const rowActions = (
+export const DataTable = ({ title, columns, inputData, actions, funcs }) => {
+  const rowActions = record => (
     <Space size="middle" direction="vertical">
-      {actions.map(item => {
+      {actions.map((action, index) => {
         return (
           <Button
             type="link"
             className="ant-dropdown-link"
-            key={item}
-            onClick={handleClick}
+            key={index}
+            onClick={() => funcs[index](record.id)}
           >
-            {item}
+            {action}
           </Button>
         );
       })}
     </Space>
   );
 
-  const columnLabels = columns.map(item => {
+  const columnLabels = columns.map((item, index) => {
     return {
       title: item.split('_')[0],
       dataIndex: item.toLowerCase(),
-      key: item.toLowerCase(),
+      key: index,
     };
   });
 
   columnLabels.push({
     title: 'Action',
     key: 'action',
-    render: () => (
-      <Popover content={rowActions} trigger="click" placement="bottomRight">
+    render: record => (
+      <Popover
+        content={rowActions(record)}
+        trigger="click"
+        placement="bottomRight"
+      >
         <Button type="link" className="ant-dropdown-link">
           Actions <DownOutlined />
         </Button>
