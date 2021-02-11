@@ -18,8 +18,8 @@ import { Landing } from './pages/Landing/Landing';
 
 // Seller Imports
 import SellerProfile from './pages/SellerProfilePage';
-import { InventoryPage } from './pages/InventoryPage';
-import { CurrentInventory } from './pages/CurrentInventory/CurrentInventory';
+import { AddInventoryPage } from './pages/AddInventoryPage';
+import { Inventory } from './pages/Inventory/Inventory';
 import { ProductPage } from './pages/ProductPage';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
@@ -61,12 +61,12 @@ function App() {
           <SecureRoute
             exact
             path="/myprofile/inventory"
-            component={CurrentInventory}
+            component={Inventory}
           />
           <SecureRoute
             exact
             path="/myprofile/inventory/additem"
-            component={InventoryPage}
+            component={AddInventoryPage}
           />
           <SecureRoute
             exact
