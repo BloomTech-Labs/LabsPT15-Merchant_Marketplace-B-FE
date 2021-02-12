@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/common/Button';
 import { Link } from 'react-router-dom';
+import { CheckIcon, CancelIcon } from '../../components/icons/index';
 
 import { useFetch } from '../../hooks/useFetch';
 import { Layout } from '../../components/common/Layout/Layout';
@@ -12,7 +13,7 @@ export function Inventory() {
   const { stores } = useProfile();
   const [inventory, setInventory] = useState([]);
 
-  const { get, deleteReq } = useFetch();
+  const { get, put, deleteReq } = useFetch();
 
   useEffect(
     function fetchInventory() {
@@ -33,34 +34,50 @@ export function Inventory() {
     // go to edit product page and use this products info
     console.log(id);
   };
-  const handleList = id => {
-    console.log(id);
+  const handleList = async id => {
+    const publishItem = inventory.find(product => {
+      return product.id === id;
+    });
+    publishItem.published = !publishItem.published;
+    const res = await put(`products/${id}`, publishItem);
+    if (res) {
+      const firstStoreData = await get(`stores/${stores[0].id}/products`);
+      const newFirstStoreInventory = await firstStoreData.data;
+      setInventory([...newFirstStoreInventory]);
+    }
   };
   const handleDelete = async id => {
-    console.log(id);
     await deleteReq(`products/${id}`);
     const firstStoreData = await get(`stores/${stores[0].id}/products`);
     const newFirstStoreInventory = await firstStoreData.data;
     setInventory([...newFirstStoreInventory]);
   };
 
+  const modifiedInventory = inventory.map(product => {
+    const formatDate = new Date(product.created_at).toDateString();
+    const formatPrice = `$${(product.price / 100).toFixed(2)}`;
+    const publishedIcon = product.published ? <CheckIcon /> : <CancelIcon />;
+    return {
+      ...product,
+      created_at: formatDate,
+      price: formatPrice,
+      published: publishedIcon,
+    };
+  });
+
   return (
     <Layout>
-      <div className="outerContainer">
-        <div className="contents">
-          <Link to="/myprofile/inventory/additem">
-            <Button>+Add Item</Button>
-          </Link>
-          <DataTable
-            title={'Inventory'}
-            // columns array prop must be names of fields from correct table
-            columns={['Name', 'Created_At', 'Price', 'Stock_Quantity']}
-            inputData={inventory}
-            actions={['Edit', 'List Item', 'Delete']}
-            funcs={[handleEdit, handleList, handleDelete]}
-          />
-        </div>
-      </div>
+      <Link to="/myprofile/inventory/additem">
+        <Button>+Add Item</Button>
+      </Link>
+      <DataTable
+        title={'Inventory'}
+        // columns array prop must be names of fields from correct table
+        columns={['Name', 'Created_At', 'Price', 'Stock_Quantity', 'Published']}
+        inputData={modifiedInventory}
+        actions={['Edit', 'List Item', 'Delete']}
+        funcs={[handleEdit, handleList, handleDelete]}
+      />
     </Layout>
   );
 }
