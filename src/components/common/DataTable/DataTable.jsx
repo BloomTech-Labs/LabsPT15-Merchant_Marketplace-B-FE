@@ -44,9 +44,13 @@ export const DataTable = ({ title, columns, inputData, actions, funcs }) => {
     ),
   });
 
+  const compareID = (a, b) => {
+    return a.id < b.id ? -1 : 1;
+  };
+
   return (
     <Table
-      dataSource={inputData ? inputData : null}
+      dataSource={inputData ? inputData.sort(compareID) : null}
       rowKey={record => record.id}
       title={() => title}
       pagination={{ hideOnSinglePage: true }}
