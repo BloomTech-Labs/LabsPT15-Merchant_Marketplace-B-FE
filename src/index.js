@@ -18,6 +18,7 @@ import { Landing } from './pages/Landing/Landing';
 
 // Seller Imports
 import SellerProfile from './pages/SellerProfilePage';
+import { ViewStore } from './pages/ViewStore';
 import { AddInventoryPage } from './pages/AddInventoryPage';
 import { Inventory } from './pages/Inventory/Inventory';
 import { ProductPage } from './pages/ProductPage';
@@ -58,6 +59,7 @@ function App() {
           {/* any of the routes you need secured should be registered as SecureRoutes */}
           <Route exact path="/" component={Landing} />
           <SecureRoute exact path="/myprofile" component={SellerProfile} />
+          <SecureRoute exact path="/stores" component={ViewStore} />
           <SecureRoute
             exact
             path="/myprofile/inventory"
