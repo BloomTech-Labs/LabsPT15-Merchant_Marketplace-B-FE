@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Button } from '../../components/common/Button';
 import { Link } from 'react-router-dom';
 import { CheckIcon, CancelIcon } from '../../components/icons/index';
@@ -12,22 +13,23 @@ import { useProfile } from '../../contexts/profile/ProfileProvider';
 export function Inventory() {
   const { stores } = useProfile();
   const [inventory, setInventory] = useState([]);
+  const { store_id } = useParams();
 
   const { get, put, deleteReq } = useFetch();
 
   useEffect(
     function fetchInventory() {
       async function asyncFetch() {
-        const firstStoreData = await get(`stores/${stores[0].id}/products`);
-        const firstStoreInventory = await firstStoreData.data;
-        setInventory([...firstStoreInventory]);
+        const storeData = await get(`stores/${store_id}/products`);
+        const storeInventory = await storeData.data;
+        setInventory([...storeInventory]);
       }
 
       if (stores.length > 0) {
         asyncFetch();
       }
     },
-    [stores, get]
+    [stores, store_id, get]
   );
 
   const handleEdit = id => {
@@ -41,16 +43,16 @@ export function Inventory() {
     publishItem.published = !publishItem.published;
     const res = await put(`products/${id}`, publishItem);
     if (res) {
-      const firstStoreData = await get(`stores/${stores[0].id}/products`);
-      const newFirstStoreInventory = await firstStoreData.data;
-      setInventory([...newFirstStoreInventory]);
+      const storeData = await get(`stores/${store_id}/products`);
+      const newStoreInventory = await storeData.data;
+      setInventory([...newStoreInventory]);
     }
   };
   const handleDelete = async id => {
     await deleteReq(`products/${id}`);
-    const firstStoreData = await get(`stores/${stores[0].id}/products`);
-    const newFirstStoreInventory = await firstStoreData.data;
-    setInventory([...newFirstStoreInventory]);
+    const storeData = await get(`stores/${store_id}/products`);
+    const newStoreInventory = await storeData.data;
+    setInventory([...newStoreInventory]);
   };
 
   const modifiedInventory = inventory.map(product => {
@@ -67,7 +69,7 @@ export function Inventory() {
 
   return (
     <Layout>
-      <Link to="/myprofile/inventory/additem">
+      <Link to={`/stores/${store_id}/add-product`}>
         <Button>+Add Item</Button>
       </Link>
       <DataTable

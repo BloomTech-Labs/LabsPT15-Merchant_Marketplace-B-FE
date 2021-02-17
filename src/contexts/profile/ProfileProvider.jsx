@@ -32,7 +32,7 @@ export function ProfileProvider({ children }) {
         asyncFetch();
       }
     },
-    [authState, authService, oktaId]
+    [authState, authService, oktaId, get]
   );
 
   useEffect(
@@ -46,7 +46,7 @@ export function ProfileProvider({ children }) {
         asyncFetch();
       }
     },
-    [authState, authService, oktaId]
+    [authState, authService, oktaId, get]
   );
 
   const memoizedState = useMemo(() => ({ ...state }), [state]);

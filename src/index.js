@@ -60,7 +60,7 @@ function App() {
           <SecureRoute exact path="/myprofile" component={SellerProfile} />
           <SecureRoute
             exact
-            path="/myprofile/inventory"
+            path="/stores/:store_id/inventory"
             component={Inventory}
           />
           <SecureRoute
