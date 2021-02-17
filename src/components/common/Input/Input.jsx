@@ -53,6 +53,7 @@ const StyledInput = styled.input`
   border: none;
   outline: none;
   background-color: white;
+  border: 2px solid white;
 
   font-size: 14px;
   line-height: 21px;
@@ -66,6 +67,12 @@ const StyledInput = styled.input`
     Icon &&
     css`
       padding-left: 40px;
+    `}
+
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      border: 2px solid red;
     `}
 `;
 const StyledInputContainer = styled.div`

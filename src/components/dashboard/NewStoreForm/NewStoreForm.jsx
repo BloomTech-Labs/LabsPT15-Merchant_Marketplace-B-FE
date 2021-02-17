@@ -1,6 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { getUnixTime } from 'date-fns';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useFetch } from '../../../hooks/useFetch';
+import { useOktaId } from '../../../hooks/useOktaId';
+import { useUploadImage } from '../../../hooks/useUploadImage';
 import { StyledButton, StyledForm } from '../../../styles/styled-components';
 import { ImageFormGallery } from '../../common/FormImageGallery';
 import { Input } from '../../common/Input';
@@ -9,7 +14,13 @@ import { Textarea } from '../../common/Textarea';
 
 export function NewStoreForm() {
   const [images, setImages] = useState([]);
-  const { register, handleSubmit, reset } = useForm();
+  const [imageFiles, setImageFiles] = useState([]);
+
+  const history = useHistory();
+  const { register, handleSubmit, errors } = useForm();
+  const { getLocalUrls, uploadImagesToS3 } = useUploadImage();
+  const { post, put } = useFetch();
+  const { oktaId } = useOktaId();
 
   const location = useRef();
 
@@ -17,11 +28,38 @@ export function NewStoreForm() {
     location.current = place;
   }
 
-  function onSubmit(data) {
-    console.log({ data });
-    const stringifyLocation = JSON.stringify(location.current);
-    console.log(stringifyLocation);
-    console.log(JSON.parse(stringifyLocation));
+  async function onSubmit({
+    name,
+    opening_hours,
+    closing_hours,
+    description,
+    phone_number,
+  }) {
+    const operating_hours = `${opening_hours} - ${closing_hours}`;
+    const owner_id = oktaId;
+    const stringLocation = JSON.stringify(location);
+    const storeModel = {
+      name,
+      description,
+      phone_number,
+      operating_hours,
+      owner_id,
+      location: stringLocation,
+      created_at: getUnixTime(Date.now()),
+    };
+
+    try {
+      const storeRes = await post('store', storeModel);
+      if (storeRes.request.status === 201) {
+        const S3Urls = await uploadImagesToS3(imageFiles);
+        await put(`store/${storeRes.data.id}`, {
+          images: S3Urls,
+        });
+        history.push(`/stores/${storeRes.data.id}/inventory`);
+      }
+    } catch (error) {
+      console.error('Error creating new store: ', JSON.parse(error));
+    }
   }
 
   function preventEnter(e) {
@@ -32,13 +70,10 @@ export function NewStoreForm() {
   }
 
   function onFileUpload(e) {
-    setImages(
-      Array.from(e.target.files)
-        .map(file => URL.createObjectURL(file))
-        .slice(0, 5)
-    );
+    const files = e.target.files;
 
-    Array.from(e.target.files).map(file => URL.revokeObjectURL(file));
+    setImages(getLocalUrls(files));
+    setImageFiles(files);
   }
 
   return (
@@ -58,20 +93,36 @@ export function NewStoreForm() {
         </StyledUploadButton>
         <span>5 images maximum</span>
       </StyledFlexContainer>
-      <Input
-        label="Name"
-        placeholder="enter your store name..."
-        ref={register}
-        id="name"
-        name="name"
-      />
-      <Textarea
-        label="Description"
-        placeholder="enter your store description..."
-        ref={register}
-        id="description"
-        name="description"
-      />
+      <StyledInputGroup>
+        <Input
+          label="Name"
+          placeholder="enter your store name..."
+          ref={register({
+            required: 'Name required',
+          })}
+          id="name"
+          name="name"
+          hasError={errors.name}
+        />
+        {errors.name ? (
+          <StyledErrorMessage>{errors.name.message}</StyledErrorMessage>
+        ) : null}
+      </StyledInputGroup>
+      <StyledInputGroup>
+        <Textarea
+          label="Description"
+          placeholder="enter your store description..."
+          ref={register({
+            required: 'Description required',
+          })}
+          id="description"
+          name="description"
+          hasError={errors.description}
+        />
+        {errors.description ? (
+          <StyledErrorMessage>{errors.description.message}</StyledErrorMessage>
+        ) : null}
+      </StyledInputGroup>
       <Input
         label="Phone number"
         placeholder="enter your store phone number..."
@@ -95,7 +146,19 @@ export function NewStoreForm() {
           name="closing_hours"
         />
       </StyledGridContainer>
-      <SearchPlaces label="Location" ref={register} setLocation={setLocation} />
+      <StyledInputGroup>
+        <SearchPlaces
+          label="Location"
+          ref={register({
+            required: 'Location required',
+          })}
+          setLocation={setLocation}
+          hasError={errors.location}
+        />
+        {errors.location ? (
+          <StyledErrorMessage>{errors.location.message}</StyledErrorMessage>
+        ) : null}
+      </StyledInputGroup>
       <StyledButton type="submit">Create Store</StyledButton>
     </StyledForm>
   );
@@ -142,4 +205,15 @@ const StyledGridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
+`;
+
+const StyledInputGroup = styled.div`
+  position: relative;
+`;
+const StyledErrorMessage = styled.p`
+  position: absolute;
+  color: red;
+  margin-bottom: 0;
+  right: 0;
+  bottom: -24px;
 `;

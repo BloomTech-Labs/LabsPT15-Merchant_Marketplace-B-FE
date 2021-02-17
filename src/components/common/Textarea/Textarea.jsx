@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Textarea = forwardRef(({ label = null, ...props }, ref) => {
   return (
@@ -32,4 +32,10 @@ const StyledTextarea = styled.textarea`
   &::placeholder {
     color: #90939c;
   }
+
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      border: 2px solid red;
+    `}
 `;

@@ -3,18 +3,20 @@ import { useEffect, useState } from 'react';
 
 export function useOktaId() {
   const [oktaId, setOktaId] = useState(null);
-  const { authState, authService } = useOktaAuth();
+  const { authService } = useOktaAuth();
 
   useEffect(
     function fetchUser() {
       async function asyncFetch() {
         const oktaUser = await authService.getUser();
-        setOktaId(oktaUser.sub);
+        setOktaId(oktaUser?.sub);
       }
 
-      asyncFetch();
+      if (authService) {
+        asyncFetch();
+      }
     },
-    [authState, authService]
+    [authService]
   );
 
   return { oktaId };

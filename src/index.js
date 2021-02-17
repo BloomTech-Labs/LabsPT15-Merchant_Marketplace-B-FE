@@ -18,13 +18,14 @@ import { config } from './services/okta/oktaConfig';
 // Seller Imports
 import SellerProfile from './pages/SellerProfilePage';
 import { InventoryPage } from './pages/InventoryPage';
+import { Landing } from './pages/Landing';
 import { CurrentInventory } from './pages/CurrentInventory/CurrentInventory';
 import { ProductPage } from './pages/ProductPage';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import { NewStorePage } from './pages/NewStorePage';
-import { LandingPage } from './pages/LandingPage';
+import { StoresPage } from './pages/StoresPage';
 import { ProfileProvider } from './contexts';
 
 ReactDOM.render(
@@ -57,7 +58,8 @@ function App() {
           <Route path="/login" component={LoginPage} />
           <Route path="/implicit/callback" component={LoginCallback} />
           {/* any of the routes you need secured should be registered as SecureRoutes */}
-          <Route exact path="/" component={LandingPage} />
+          <Route path="/" exact component={Landing} />
+          <SecureRoute exact path="/stores" component={StoresPage} />
           <SecureRoute exact path="/myprofile" component={SellerProfile} />
           <SecureRoute
             exact
