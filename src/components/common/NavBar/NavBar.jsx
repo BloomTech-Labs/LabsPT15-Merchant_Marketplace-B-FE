@@ -2,14 +2,15 @@ import { useOktaAuth } from '@okta/okta-react';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAuthState } from '../../../hooks/useAuthState';
+import { StyledButton } from '../../../styles/styled-components';
 import { SearchIcon } from '../../icons';
-import { Button } from '../Button';
 import { Input } from '../Input';
 
 export function NavBar() {
-  const { authService } = useOktaAuth();
-  const { isAuthenticated } = useAuthState();
+  const {
+    authState: { isAuthenticated },
+    authService,
+  } = useOktaAuth();
 
   const login = useCallback(() => authService.login('/myprofile'), [
     authService,
@@ -24,9 +25,9 @@ export function NavBar() {
         <Input placeholder="Search..." name="search" icon={SearchIcon} />
       </StyledFlex>
       {isAuthenticated ? (
-        <Button onClick={logout}>Logout</Button>
+        <StyledButton onClick={logout}>Logout</StyledButton>
       ) : (
-        <Button onClick={login}>Login</Button>
+        <StyledButton onClick={login}>Login</StyledButton>
       )}
     </StyledHeader>
   );

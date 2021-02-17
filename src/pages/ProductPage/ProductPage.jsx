@@ -31,7 +31,9 @@ export const ProductPage = props => {
   });
   return (
     <Layout>
-      <ProductInfo item={item} />
+      <StyledProductPage>
+        <ProductInfo item={item} />
+      </StyledProductPage>
     </Layout>
   );
 };
