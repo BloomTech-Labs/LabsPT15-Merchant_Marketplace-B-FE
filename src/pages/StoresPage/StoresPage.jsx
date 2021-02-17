@@ -18,7 +18,7 @@ export function StoresPage() {
 
       if (loaded) setLoading(false);
     },
-    [stores]
+    [stores, history, loaded]
   );
 
   return (

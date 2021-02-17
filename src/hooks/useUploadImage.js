@@ -50,16 +50,9 @@ export function useUploadImage() {
     const uploadReqs = filesWithSignedUrlRes.map(obj =>
       uploadImageToS3(obj.file, obj.signedUrlResponse)
     );
-    const uploadRes = await Promise.all(uploadReqs);
+    await Promise.all(uploadReqs);
 
     const s3Urls = signedUrlRes.map(res => res.data.url);
-    console.log({
-      s3Urls,
-      signedUrlRes,
-      files,
-      uploadRes,
-      filesWithSignedUrlRes,
-    });
     return s3Urls;
   }
 

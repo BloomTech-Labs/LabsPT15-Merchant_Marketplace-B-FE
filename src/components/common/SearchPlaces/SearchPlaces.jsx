@@ -17,8 +17,6 @@ export const SearchPlaces = forwardRef(
     const onPlaceChanged = () => {
       const place = autocomplete.getPlace();
       setLocation(place);
-
-      console.log({ stringify: JSON.stringify(place) });
     };
 
     return (
