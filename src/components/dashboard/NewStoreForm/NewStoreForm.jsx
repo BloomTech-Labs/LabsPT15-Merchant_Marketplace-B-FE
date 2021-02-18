@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { useProfile } from '../../../contexts/profile/ProfileProvider';
 import { useFetch } from '../../../hooks/useFetch';
 import { useOktaId } from '../../../hooks/useOktaId';
 import { useUploadImage } from '../../../hooks/useUploadImage';
@@ -19,7 +20,8 @@ export function NewStoreForm() {
   const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
   const { getLocalUrls, uploadImagesToS3 } = useUploadImage();
-  const { post, put } = useFetch();
+  const { dispatch, types } = useProfile();
+  const { post, put, get } = useFetch();
   const { oktaId } = useOktaId();
 
   const location = useRef();
@@ -55,6 +57,8 @@ export function NewStoreForm() {
         await put(`store/${storeRes.data.id}`, {
           images: S3Urls,
         });
+        const newStores = await get(`profile/${oktaId}/stores`);
+        dispatch({ type: types.GET_STORES, payload: newStores.data });
         history.push(`/stores/${storeRes.data.id}/inventory`);
       }
     } catch (error) {

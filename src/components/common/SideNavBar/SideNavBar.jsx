@@ -1,25 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { StoresMenuList } from '../StoresMenuList/StoresMenuList';
+import { StyledButton } from '../../../styles/styled-components';
 
 export function SideNavBar() {
+  const history = useHistory();
+
+  function onCreateStore() {
+    history.push('/new-store');
+  }
+
   return (
     <StyledAside>
       <StyledNav>
-        <Link to="/">/</Link>
-        <Link to="/myprofile">/mp</Link>
-        <Link to="/myprofile/inventory">/mp/inventory</Link>
-        <Link to="/myprofile/inventory/additem">/mp/inventory/additem</Link>
-        <Link to="/products/:product_id">/products/:product_id</Link>
+        <h4>Stores</h4>
+        <StoresMenuList />
       </StyledNav>
+      <StyledButton onClick={onCreateStore}>Create Store</StyledButton>
     </StyledAside>
   );
 }
 
 const StyledAside = styled.aside`
   grid-area: aside;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 16px;
-  background: #e8e8e8;
+  background: white;
   padding: 16px;
 `;
 const StyledNav = styled.nav`

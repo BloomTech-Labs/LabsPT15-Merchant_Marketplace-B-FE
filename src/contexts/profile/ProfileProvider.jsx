@@ -53,7 +53,11 @@ export function ProfileProvider({ children }) {
     [authState, authService, oktaId, get]
   );
 
-  const memoizedState = useMemo(() => ({ ...state, loaded }), [state, loaded]);
+  const memoizedState = useMemo(() => ({ ...state, loaded, dispatch, types }), [
+    state,
+    loaded,
+    dispatch,
+  ]);
 
   return (
     <ProfileContext.Provider value={memoizedState}>
