@@ -1,64 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { Rate, Avatar, Tag } from 'antd';
+import { Rate, Avatar } from 'antd';
+import { Button } from '../../components/common/Button';
 import { GlobalOutlined } from '@ant-design/icons';
-import { useFetch } from '../../hooks/useFetch';
 
-export const ProductInfo = ({ item }) => {
-  const [img, setImg] = useState('');
-  const { get } = useFetch();
-  const itemId = item?.id;
-
-  useEffect(
-    function fetchImg() {
-      async function asyncFetch() {
-        const res = await get(`photo/${itemId}`);
-        setImg(res.data[0]['url']);
-      }
-
-      asyncFetch();
-    },
-    [itemId, get]
-  );
-
-  let dollars = item?.price_in_cents / 100;
+export const ProductInfo = ({ inventory }) => {
   return (
     <div className="product-page">
       <div className="product-container">
-        <div>
-          <img src={img} alt="main product" />
-        </div>
+        <section className="product-column-1">
+          <img
+            src="https://media.istockphoto.com/photos/persian-rug-carpet-picture-id135093139"
+            className="main-product-img"
+          />
+          <h4>Description</h4>
+          <p>{inventory?.description}</p>
+        </section>
 
-        <div className="item">
-          <div className="name-price">
-            <p>{item?.item_name}</p>
-            <p>${dollars}</p>
-          </div>
-          <div className="rating">
-            <Rate />
+        <section className="product-column-2">
+          <div className="map-location">
+            <img
+              src="https://i.stack.imgur.com/O5kzo.jpg"
+              className="map-sample"
+            />
+            <h6>San Fancisco, CA</h6>
           </div>
           <div className="store-name">
             <Avatar size="small" icon={<GlobalOutlined />} />
-            <h3>Store Name</h3>
+            <h5>Store Name</h5>
           </div>
-          <p>location</p>
-          <section>
-            <p>{item?.description}</p>
-            {item?.quantity_available !== 0 ? (
-              <h2 style={{ color: 'green' }}>
-                QTY: {item?.quantity_available}
-              </h2>
+
+          <h2>{inventory?.name}</h2>
+
+          <div className="rating">
+            <p>Rating: </p>
+            <Rate />
+          </div>
+          <p>${inventory?.price / 100}</p>
+
+          <div className="stock-quantity">
+            {inventory?.stock_quantity > 0 ? (
+              <p style={{ color: 'blue' }}>In Stock</p>
             ) : (
-              <h2 style={{ color: 'red' }}>QTY: {item?.quantity_available}</h2>
+              <p style={{ color: 'red' }}>Out Of Stock</p>
             )}
-          </section>
-        </div>
+            <p>Quantity: {inventory?.stock_quantity}</p>
+          </div>
+          <Button id="add-to-cart">Add to Cart</Button>
+        </section>
       </div>
-      <section className="tags-container">
-        <Tag className="tags">Tag</Tag>
-        <Tag className="tags">Tag</Tag>
-        <Tag className="tags">Tag</Tag>
-        <Tag className="tags">Tag</Tag>
-      </section>
     </div>
   );
 };

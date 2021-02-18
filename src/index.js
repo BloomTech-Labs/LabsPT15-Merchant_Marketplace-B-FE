@@ -70,7 +70,7 @@ function App() {
           />
           <SecureRoute
             exact
-            path="/myprofile/inventory/productpage/:id"
+            path="/products/:product_id"
             render={routeProps => {
               return <ProductPage match={routeProps.match} />;
             }}

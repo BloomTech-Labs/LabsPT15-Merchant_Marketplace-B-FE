@@ -10,9 +10,7 @@ export function SideNavBar() {
         <Link to="/myprofile">/mp</Link>
         <Link to="/myprofile/inventory">/mp/inventory</Link>
         <Link to="/myprofile/inventory/additem">/mp/inventory/additem</Link>
-        <Link to="/myprofile/inventory/productpage/1">
-          /mp/inventory/productpage/1
-        </Link>
+        <Link to="/products/:product_id">/products/:product_id</Link>
       </StyledNav>
     </StyledAside>
   );

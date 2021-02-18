@@ -9,7 +9,7 @@ export function useOktaId() {
     function fetchUser() {
       async function asyncFetch() {
         const oktaUser = await authService.getUser();
-        setOktaId(oktaUser.sub);
+        setOktaId(oktaUser?.sub);
       }
 
       asyncFetch();
