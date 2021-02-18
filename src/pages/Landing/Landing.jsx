@@ -12,6 +12,7 @@ export const Landing = () => {
   const [previewProducts, setPreviewProducts] = useState(sample);
   const { get } = useFetch();
   const { profile } = useProfile();
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(
     function fetchPreviews() {
@@ -22,19 +23,22 @@ export const Landing = () => {
             const res = await get(`products/${i}`);
             if (res.data.length > 0) {
               previewArr.push(res.data[0]);
-            } else if (i > 50) break;
+            }
           } catch (error) {
             console.error(`product ${i} not found:`, { error });
           }
+          if (i > 50) break;
         }
         setPreviewProducts(previewArr);
+        setLoaded(true);
       }
 
-      if (profile) {
+      if (profile && !loaded) {
+        // add loaded variable to avoid request spam on logout
         asyncFetch();
       }
     },
-    [profile, get]
+    [profile, get, loaded]
   );
 
   const preview = previewProducts.map(item => {
