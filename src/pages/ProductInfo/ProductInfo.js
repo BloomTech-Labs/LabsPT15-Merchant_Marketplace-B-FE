@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Rate, Avatar } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
 import { StyledButton } from '../../styles/styled-components';
