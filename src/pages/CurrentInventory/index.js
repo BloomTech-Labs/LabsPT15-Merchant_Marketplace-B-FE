@@ -1,1 +1,0 @@
-export { CurrentInventory } from './CurrentInventory';
