@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Rate, Avatar } from 'antd';
-import { Button } from '../../components/common/Button';
 import { GlobalOutlined } from '@ant-design/icons';
+import { StyledButton } from '../../styles/styled-components';
 
-export const ProductInfo = ({ inventory }) => {
+export const ProductInfo = ({ product }) => {
   return (
     <div className="product-page">
       <div className="product-container">
@@ -13,7 +13,7 @@ export const ProductInfo = ({ inventory }) => {
             className="main-product-img"
           />
           <h4>Description</h4>
-          <p>{inventory?.description}</p>
+          <p>{product?.description}</p>
         </section>
 
         <section className="product-column-2">
@@ -24,28 +24,35 @@ export const ProductInfo = ({ inventory }) => {
             />
             <h6>San Fancisco, CA</h6>
           </div>
-          <div className="store-name">
+          <div className="store-container">
             <Avatar size="small" icon={<GlobalOutlined />} />
-            <h5>Store Name</h5>
+            <h5 id="store-name">{product?.store.name}</h5>
           </div>
 
-          <h2>{inventory?.name}</h2>
+          <h2 id="product-name">{product?.name}</h2>
 
           <div className="rating">
-            <p>Rating: </p>
             <Rate />
           </div>
-          <p>${inventory?.price / 100}</p>
+
+          <h3 id="product-price">${product?.price / 100}</h3>
 
           <div className="stock-quantity">
-            {inventory?.stock_quantity > 0 ? (
+            {product?.stock_quantity > 0 ? (
               <p style={{ color: 'blue' }}>In Stock</p>
             ) : (
               <p style={{ color: 'red' }}>Out Of Stock</p>
             )}
-            <p>Quantity: {inventory?.stock_quantity}</p>
+            <label for="quantity">Quantity</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              min="1"
+              max={product?.stock_quantity}
+            ></input>
           </div>
-          <Button id="add-to-cart">Add to Cart</Button>
+          <StyledButton id="add-to-cart">Add to Cart</StyledButton>
         </section>
       </div>
     </div>

@@ -8,7 +8,7 @@ import { useProfile } from '../../contexts/profile/ProfileProvider';
 import { Layout } from '../../components/common/Layout/Layout';
 
 export const ProductPage = props => {
-  const [inventory, setInventory] = useState();
+  const [product, setProduct] = useState();
 
   const { profile } = useProfile();
   const { product_id } = useParams();
@@ -18,9 +18,10 @@ export const ProductPage = props => {
     function fetchInventory() {
       async function asyncFetch() {
         try {
-          const res = await get(`products/${product_id}`);
-          console.log(res.data);
-          setInventory(res.data[0]);
+          const productRes = await get(`products/${product_id}`);
+          const storeRes = await get(`stores/${productRes.data[0].store_id}`);
+          console.log({ productRes, storeRes });
+          setProduct({ ...productRes.data[0], store: { ...storeRes.data } });
         } catch (e) {
           console.error(e);
         }
@@ -33,10 +34,12 @@ export const ProductPage = props => {
     [profile, get]
   );
 
+  console.log({ product });
+
   return (
     <Layout>
       <StyledProductPage>
-        <ProductInfo inventory={inventory} />
+        <ProductInfo product={product} />
       </StyledProductPage>
     </Layout>
   );
@@ -66,13 +69,14 @@ const StyledProductPage = styled.div`
   .main-product-img {
     width: 100%;
     heigh: auto;
-    margin-bottom: 5%;
+    margin-bottom: 3.5%;
   }
 
   .map-sample {
     width: 100%;
     height: auto;
     border-radius: 5%;
+    margin-bottom: 0%;
   }
 
   .name-price {
@@ -82,9 +86,46 @@ const StyledProductPage = styled.div`
     justify-content: space-between;
   }
 
-  .store-name {
+  .store-container {
     display: flex;
-    margin-top: 2%;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #store-name {
+    padding-left: 2%;
+  }
+
+  #product-name {
+    margin: 0;
+    padding: 0;
+  }
+
+  .rating {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0;
+  }
+
+  #product-price {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .stock-quantity {
+    margin-top: 0;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #quantity {
+    border: none;
+    border-radius: 10%;
+    width: 16.5%;
+    height: 4vh;
+    padding-left: 1.5%;
   }
 
   #add-to-cart {
