@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Input, Button } from 'antd';
+import { Input } from 'antd';
+import { StyledButton } from '../../../styles/styled-components/StyledButton';
 import { AimOutlined, SearchOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -31,9 +32,9 @@ export function BrowserBar() {
         placeholder="What are you looking for?"
         onSubmit={submitHandler}
       />
-      <Button htmlType="submit">
+      <StyledButton htmlType="submit">
         <SearchOutlined />
-      </Button>
+      </StyledButton>
     </StyledBrowserBar>
   );
 }
