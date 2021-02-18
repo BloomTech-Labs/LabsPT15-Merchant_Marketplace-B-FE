@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button } from '../../components/common/Button';
+import { StyledButton } from '../../styles/styled-components';
 import { Link } from 'react-router-dom';
 import { CheckIcon, CancelIcon } from '../../components/icons/index';
 
@@ -70,7 +70,7 @@ export function Inventory() {
   return (
     <Layout>
       <Link to={`/stores/${store_id}/add-product`}>
-        <Button>+Add Item</Button>
+        <StyledButton>+Add Item</StyledButton>
       </Link>
       <DataTable
         title={'Inventory'}
