@@ -79,13 +79,6 @@ const StyledProductPage = styled.div`
     margin-bottom: 0%;
   }
 
-  .name-price {
-    font-size: xx-large;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
   .store-container {
     display: flex;
     justify-content: flex-start;
