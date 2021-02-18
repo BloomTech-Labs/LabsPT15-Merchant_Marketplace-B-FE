@@ -1,0 +1,1 @@
+export { ImageFormGallery } from './FormImageGallery';

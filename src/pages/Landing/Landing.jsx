@@ -1,79 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useFetch } from '../../hooks/useFetch';
+import { useProfile } from '../../contexts/profile/ProfileProvider';
 import { BrowserBar } from '../../components/common/BrowserBar';
 import { Layout } from '../../components/common/Layout/Layout';
+import { ProductPreviewCard } from '../../components/common/ProductPreviewCard';
+import sample from './sampleProducts.json';
 
 export const Landing = () => {
+  // Must use placeholder data as initial state, as fetching real data requires being logged in
+  const [previewProducts, setPreviewProducts] = useState(sample);
+  const { get } = useFetch();
+  const { profile } = useProfile();
+
+  useEffect(
+    function fetchPreviews() {
+      async function asyncFetch() {
+        const previewArr = [];
+        for (let i = 1; previewArr.length < 8; i++) {
+          const res = await get(`products/${i}`);
+          if (res.data.length > 0) {
+            previewArr.push(res.data[0]);
+          } else if (i > 50) break;
+        }
+        setPreviewProducts(previewArr);
+      }
+
+      if (profile) {
+        asyncFetch();
+      }
+    },
+    [profile, get]
+  );
+
+  const preview = previewProducts.map(item => {
+    return <ProductPreviewCard key={item.id} product={item} />;
+  });
+
   return (
     <Layout>
       <BrowserBar />
+      <Display>{preview}</Display>
     </Layout>
   );
 };
 
-const StyledLanding = styled.div`
-  .menu {
-    width: 200px;
-    padding-top: 10px;
-  }
-
-  .link {
-    margin-left: 1%;
-    margin-right: 1%;
-    text-decoration: none;
-  }
-
-  .top-rated {
-    display: flex;
-    justify-content: center;
-  }
-
-  .title-1 {
-    margin-top: 5%;
-  }
-
-  .title-2 {
-    margin-top: 5%;
-  }
-
-  .top-img {
-    height: 200px;
-    background-color: rebeccapurple;
-    width: 300px;
-    margin-right: 2%;
-    margin-left: 2%;
-    box-shadow: 5px 10px gray;
-  }
-
-  .top-img:hover {
-    background-color: powderblue;
-  }
-
-  .browse {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 300px;
-  }
-
-  .browse-bar {
-    display: flex;
-    justify-content: center;
-  }
-
-  @media only screen and (max-width: 600px) {
-    .top-rated {
-      display: flex;
-      flex-direction: column;
-      padding: 10%;
-      margin-left: 2;
-    }
-
-    .top-img {
-      height: 200px;
-      background-color: rebeccapurple;
-      margin: 2%;
-      box-shadow: 5px 10px gray;
-    }
+const Display = styled.div`
+  & {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
   }
 `;

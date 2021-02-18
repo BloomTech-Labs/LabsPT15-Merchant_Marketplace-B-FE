@@ -2,18 +2,17 @@ import { useOktaAuth } from '@okta/okta-react';
 import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAuthState } from '../../../hooks/useAuthState';
+import { StyledButton } from '../../../styles/styled-components';
 import { SearchIcon } from '../../icons';
-import { Button } from '../Button';
 import { Input } from '../Input';
 
 export function NavBar() {
-  const { authService } = useOktaAuth();
-  const { isAuthenticated } = useAuthState();
-
-  const login = useCallback(() => authService.login('/myprofile'), [
+  const {
+    authState: { isAuthenticated },
     authService,
-  ]);
+  } = useOktaAuth();
+
+  const login = useCallback(() => authService.login('/'), [authService]);
 
   const logout = useCallback(() => authService.logout('/'), [authService]);
 
@@ -24,9 +23,9 @@ export function NavBar() {
         <Input placeholder="Search..." name="search" icon={SearchIcon} />
       </StyledFlex>
       {isAuthenticated ? (
-        <Button onClick={logout}>Logout</Button>
+        <StyledButton onClick={logout}>Logout</StyledButton>
       ) : (
-        <Button onClick={login}>Login</Button>
+        <StyledButton onClick={login}>Login</StyledButton>
       )}
     </StyledHeader>
   );
@@ -50,7 +49,7 @@ const StyledFlex = styled.div`
 const StyledLink = styled(Link)`
   width: 92px;
   height: 48px;
-  background: #c8c9ce;
+  background: #3d5af1;
   border-radius: 12px;
 
   display: flex;
@@ -62,5 +61,9 @@ const StyledLink = styled(Link)`
   font-weight: 700;
   font-size: 24px;
   line-height: 36px;
-  color: #383f51;
+  color: white;
+
+  &:hover {
+    color: white;
+  }
 `;

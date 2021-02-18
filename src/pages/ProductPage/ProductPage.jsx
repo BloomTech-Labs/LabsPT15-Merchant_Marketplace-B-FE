@@ -1,51 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import { ProductInfo } from '../ProductInfo/ProductInfo';
+
 import styled from 'styled-components';
 import { useFetch } from '../../hooks/useFetch';
-import { useOktaId } from '../../hooks/useOktaId';
+import { useParams } from 'react-router-dom';
+import { useProfile } from '../../contexts/profile/ProfileProvider';
 import { Layout } from '../../components/common/Layout/Layout';
 
 export const ProductPage = props => {
-  const [inventory, setInventory] = useState([]);
+  const [product, setProduct] = useState();
 
-  const { oktaId } = useOktaId();
+  const { profile } = useProfile();
+  const { product_id } = useParams();
   const { get } = useFetch();
 
   useEffect(
     function fetchInventory() {
       async function asyncFetch() {
-        const res = await get(`items/profile/${oktaId}`);
-        setInventory(res.data);
+        try {
+          const productRes = await get(`products/${product_id}`);
+          const storeRes = await get(`stores/${productRes.data[0].store_id}`);
+          console.log({ productRes, storeRes });
+          setProduct({ ...productRes.data[0], store: { ...storeRes.data } });
+        } catch (e) {
+          console.error(e);
+        }
       }
 
-      if (oktaId) {
+      if (profile) {
         asyncFetch();
       }
     },
-    [oktaId, get]
+    [profile, get]
   );
 
-  const paramItemId = props.match.params.id;
-  const item = inventory.find(item => {
-    return item.id === Number(paramItemId);
-  });
+  console.log({ product });
+
   return (
     <Layout>
-      <ProductInfo item={item} />
+      <StyledProductPage>
+        <ProductInfo product={product} />
+      </StyledProductPage>
     </Layout>
   );
 };
 
 const StyledProductPage = styled.div`
-  .product-page {
-    padding: 10%;
+  .product-container {
+    display: flex;
   }
 
-  .product-container {
-    border-top: 1px solid lightgray;
-    display: flex;
-    padding-top: 5%;
-    justify-content: center;
+  .product-column-1 {
+    width: 55%;
+    margin-right: 5%;
+  }
+
+  .product-column-2 {
+    width: 35%;
+    margin-right: 5%;
   }
 
   /* .carousel-container {
@@ -54,83 +66,64 @@ const StyledProductPage = styled.div`
     width: 50%;
   } */
 
-  .item-image {
-    height: 100px;
-    width: auto;
-  }
-  img {
-    height: 300px;
-    width: auto;
-    text-align: center;
+  .main-product-img {
+    width: 100%;
+    heigh: auto;
+    margin-bottom: 3.5%;
   }
 
-  .tags-container {
+  .map-sample {
+    width: 100%;
+    height: auto;
+    border-radius: 5%;
+    margin-bottom: 0%;
+  }
+
+  .store-container {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 
-  .tags {
-    /* background-color: lightgray;
-      border-radius: 15%; */
-    width: 80px;
-    text-align: center;
-    margin: 1%;
+  #store-name {
+    padding-left: 2%;
   }
 
-  .item {
-    display: flex;
-    padding-left: 5%;
-    padding-right: 5%;
-    width: 50%;
-    flex-direction: column;
-  }
-
-  .name-price {
-    font-size: xx-large;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  #product-name {
+    margin: 0;
+    padding: 0;
   }
 
   .rating {
-  }
-
-  .store-name {
     display: flex;
-    margin-top: 2%;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0;
   }
 
-  h3 {
-    margin-left: 1%;
+  #product-price {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
-  @media only screen and (max-width: 600px) {
-    .product-container {
-      border-top: 1px solid lightgray;
-      display: flex;
-      flex-direction: column;
-      margin-top: 20%;
-      width: 100%;
-      /* justify-content: center; */
-    }
-    .carousel-container {
-      /* height: 300px; */
-      background-color: lightpink;
-      /* width: 50%; */
-      width: 100%;
-    }
-    .item {
-      display: flex;
-      padding-left: 5%;
-      padding-right: 5%;
-      width: 100%;
-      flex-direction: column;
-    }
+  .stock-quantity {
+    margin-top: 0;
+    margin-bottom: 4%;
+    display: flex;
+    flex-direction: column;
+  }
 
-    .name-price {
-      font-size: xx-large;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-    }
+  #quantity {
+    border: none;
+    border-radius: 10%;
+    width: 16.5%;
+    height: 4vh;
+    padding-left: 1.5%;
+  }
+
+  #add-to-cart {
+    width: 100%;
+    background-color: #000024;
+    color: white;
   }
 `;
