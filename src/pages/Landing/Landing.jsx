@@ -18,10 +18,14 @@ export const Landing = () => {
       async function asyncFetch() {
         const previewArr = [];
         for (let i = 1; previewArr.length < 8; i++) {
-          const res = await get(`products/${i}`);
-          if (res.data.length > 0) {
-            previewArr.push(res.data[0]);
-          } else if (i > 50) break;
+          try {
+            const res = await get(`products/${i}`);
+            if (res.data.length > 0) {
+              previewArr.push(res.data[0]);
+            } else if (i > 50) break;
+          } catch (error) {
+            console.error(`product ${i} not found:`, { error });
+          }
         }
         setPreviewProducts(previewArr);
       }
