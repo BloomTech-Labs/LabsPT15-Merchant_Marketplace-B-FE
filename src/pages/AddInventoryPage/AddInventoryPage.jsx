@@ -9,7 +9,7 @@ import { ProgressBar } from '../../components/common/ProgressBar';
 import { useFetch } from '../../hooks/useFetch';
 import { Layout } from '../../components/common/Layout/Layout';
 
-export function InventoryPage() {
+export function AddInventoryPage() {
   // State for each form section
   const [mainInfo, setMainInfo] = useState({});
   const [specForm, setSpecForm] = useState({});

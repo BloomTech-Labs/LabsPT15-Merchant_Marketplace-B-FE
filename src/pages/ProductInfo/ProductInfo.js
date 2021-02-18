@@ -50,7 +50,7 @@ export const ProductInfo = ({ product }) => {
               name="quantity"
               min="1"
               max={product?.stock_quantity}
-            ></input>
+            />
           </div>
           <StyledButton id="add-to-cart">Add to Cart</StyledButton>
         </section>
