@@ -11,7 +11,13 @@ export const initialState = {
 export function profileReducer(state = initialState, action) {
   switch (action.type) {
     case types.GET_STORES:
-      return { ...state, stores: action.payload };
+      return {
+        ...state,
+        stores: action.payload.map(store => ({
+          ...store,
+          location: JSON.parse(store.location),
+        })),
+      };
 
     case types.GET_PROFILE:
       return { ...state, profile: action.payload };

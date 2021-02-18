@@ -1,11 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-export function Button({ children, ...props }) {
-  return <StyledButton {...props}>{children}</StyledButton>;
-}
-
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   padding: 12px 24px;
 
   background: #c8c9ce;
@@ -13,6 +8,7 @@ const StyledButton = styled.button`
   border-radius: 12px;
   border: none;
   cursor: pointer;
+  font-weight: 400;
 
   display: flex;
   justify-content: center;
