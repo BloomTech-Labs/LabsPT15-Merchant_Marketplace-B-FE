@@ -11,6 +11,7 @@ export const ProductInfo = ({ product }) => {
           <img
             src="https://media.istockphoto.com/photos/persian-rug-carpet-picture-id135093139"
             className="main-product-img"
+            alt="product-placeholder"
           />
           <h4>Description</h4>
           <p>{product?.description}</p>
@@ -21,6 +22,7 @@ export const ProductInfo = ({ product }) => {
             <img
               src="https://i.stack.imgur.com/O5kzo.jpg"
               className="map-sample"
+              alt="map-placeholder"
             />
             <h6>San Fancisco, CA</h6>
           </div>
