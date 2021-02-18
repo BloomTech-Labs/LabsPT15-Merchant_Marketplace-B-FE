@@ -31,4 +31,5 @@ const Container = styled.div`
 
 const PageContent = styled.main`
   grid-area: content;
+  overflow-y: auto;
 `;
