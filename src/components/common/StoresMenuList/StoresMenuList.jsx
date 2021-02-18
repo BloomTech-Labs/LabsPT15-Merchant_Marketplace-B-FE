@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { useProfile } from '../../../contexts/profile/ProfileProvider';
@@ -6,8 +6,8 @@ import { InventoryIcon, OrdersIcon, SettingsIcon } from '../../icons';
 
 export function StoresMenuList() {
   const { store_id } = useParams();
+  const profile = useProfile();
   const history = useHistory();
-  const { stores } = useProfile();
 
   function onMenuItemSelection(e, id) {
     history.push(`/stores/${id}/${e.target.textContent.toLowerCase()}`);
@@ -17,9 +17,11 @@ export function StoresMenuList() {
     history.push(`/stores/${id}/inventory`);
   }
 
-  return stores.length ? (
+  console.log({ profile });
+
+  return profile?.stores?.length ? (
     <StyledContainer>
-      {stores.map(store => {
+      {profile.stores.map(store => {
         return (
           <div key={store.id}>
             <StyledStoreName onClick={() => onStoreSelection(store.id)}>
