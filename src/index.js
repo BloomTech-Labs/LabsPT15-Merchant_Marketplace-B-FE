@@ -18,6 +18,8 @@ import { config } from './services/okta/oktaConfig';
 // Seller Imports
 import SellerProfile from './pages/SellerProfilePage';
 import { Inventory } from './pages/Inventory/Inventory';
+import { StoreOrdersPage } from './pages/StoreOrdersPage';
+import { StoreSettingsPage } from './pages/StoreSettingsPage';
 import { Landing } from './pages/Landing';
 import { ProductPage } from './pages/ProductPage';
 import { GlobalStyles } from './styles/GlobalStyles';
@@ -64,6 +66,16 @@ function App() {
             exact
             path="/stores/:store_id/inventory"
             component={Inventory}
+          />
+          <SecureRoute
+            exact
+            path="/stores/:store_id/orders"
+            component={StoreOrdersPage}
+          />
+          <SecureRoute
+            exact
+            path="/stores/:store_id/settings"
+            component={StoreSettingsPage}
           />
           <SecureRoute exact path="/new-store" component={NewStorePage} />
           <SecureRoute
