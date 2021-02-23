@@ -35,7 +35,6 @@ export function NewProductForm() {
       stock_quantity: stock,
       created_at: getUnixTime(Date.now()),
     };
-    console.log({ productModel });
     try {
       const productRes = await post('products', productModel);
       if (productRes.request.status === 201) {
