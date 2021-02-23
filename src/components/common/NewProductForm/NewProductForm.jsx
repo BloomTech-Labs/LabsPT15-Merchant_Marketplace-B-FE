@@ -2,7 +2,7 @@ import { InputNumber } from 'antd';
 import { getUnixTime } from 'date-fns';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { useFetch } from '../../../hooks/useFetch';
 import { useUploadImage } from '../../../hooks/useUploadImage';
@@ -22,6 +22,7 @@ export function NewProductForm() {
   const { getLocalUrls, uploadImagesToS3 } = useUploadImage();
   const { post, put, get } = useFetch();
   const { store_id } = useParams();
+  const history = useHistory();
 
   async function onSubmit({ name, description, delivery, pickup }) {
     const productModel = {
@@ -42,6 +43,7 @@ export function NewProductForm() {
         await put(`products/${productRes.data.id}`, {
           images: S3Urls,
         });
+        history.push(`/stores/${store_id}/inventory`);
       }
     } catch (error) {
       console.error('Error creating new product: ', JSON.parse(error));
