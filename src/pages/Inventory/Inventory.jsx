@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { StyledButton } from '../../styles/styled-components';
 import { Link } from 'react-router-dom';
 import { CheckIcon, CancelIcon } from '../../components/icons/index';
@@ -7,7 +7,6 @@ import { CheckIcon, CancelIcon } from '../../components/icons/index';
 import { useFetch } from '../../hooks/useFetch';
 import { Layout } from '../../components/common/Layout/Layout';
 import { DataTable } from '../../components/common/DataTable';
-
 import { useProfile } from '../../contexts/profile/ProfileProvider';
 import styled from 'styled-components';
 import { format } from 'date-fns';
@@ -17,9 +16,8 @@ export function Inventory() {
   const { stores } = useProfile();
   const [inventory, setInventory] = useState([]);
   const { store_id } = useParams();
-  const history = useHistory();
-
   const { get, put, deleteReq } = useFetch();
+  const history = useHistory();
 
   useEffect(
     function fetchInventory() {
@@ -35,10 +33,6 @@ export function Inventory() {
     },
     [stores, store_id, get]
   );
-
-  const handleViewProduct = id => {
-    history.push(`/products/${id}`);
-  };
 
   const handleList = async id => {
     const publishItem = inventory.find(product => {
@@ -64,13 +58,21 @@ export function Inventory() {
     const formatDate = format(fromUnixTime(product.created_at), 'LLL do, yyyy');
     const formatPrice = `$${(product.price / 100).toFixed(2)}`;
     const publishedIcon = product.published ? <CheckIcon /> : <CancelIcon />;
+    const nameLink = (
+      <StyledLink to={`/products/${product.id}`}>{product.name}</StyledLink>
+    );
     return {
       ...product,
+      name: nameLink,
       created_at: formatDate,
       price: formatPrice,
       published: publishedIcon,
     };
   });
+
+  const clickButton = () => {
+    history.push(`/stores/${store_id}/add-product`);
+  };
 
   return (
     <Layout>
@@ -86,8 +88,8 @@ export function Inventory() {
             'Published',
           ]}
           inputData={modifiedInventory}
-          actions={['View Product', 'List Item', 'Delete']}
-          funcs={[handleViewProduct, handleList, handleDelete]}
+          actions={['List Item', 'Delete']}
+          funcs={[handleList, handleDelete]}
         />
         <Link to={`/stores/${store_id}/add-product`}>
           <StyledButton>Add Product</StyledButton>
@@ -107,5 +109,13 @@ const StyledContainer = styled.div`
 
   button {
     margin-left: auto;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  color: #3d5af1;
+  &:hover {
+    color: #0e153a;
+    text-decoration: underline;
   }
 `;
