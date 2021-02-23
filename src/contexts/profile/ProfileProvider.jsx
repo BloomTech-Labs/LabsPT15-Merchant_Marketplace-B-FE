@@ -25,7 +25,7 @@ export function ProfileProvider({ children }) {
 
   useEffect(
     function getProfile() {
-      if (oktaId) {
+      if (oktaId && !authState.isPending) {
         async function asyncFetch() {
           const res = await get(`profile/${oktaId}`);
           dispatch({ type: types.GET_PROFILE, payload: res?.data });
@@ -40,7 +40,7 @@ export function ProfileProvider({ children }) {
 
   useEffect(
     function getStores() {
-      if (oktaId) {
+      if (oktaId && !authState.isPending) {
         async function asyncFetch() {
           const res = await get(`profile/${oktaId}/stores`);
           dispatch({ type: types.GET_STORES, payload: res?.data });

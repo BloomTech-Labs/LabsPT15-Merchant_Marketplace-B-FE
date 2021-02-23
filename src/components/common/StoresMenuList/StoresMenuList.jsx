@@ -17,8 +17,6 @@ export function StoresMenuList() {
     history.push(`/stores/${id}/inventory`);
   }
 
-  console.log({ profile });
-
   return profile?.stores?.length ? (
     <StyledContainer>
       {profile.stores.map(store => {

@@ -30,7 +30,7 @@ export const ProductPage = props => {
         asyncFetch();
       }
     },
-    [profile, get]
+    [profile, get, product_id]
   );
 
   console.log({ product });
