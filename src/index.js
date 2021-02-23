@@ -17,6 +17,8 @@ import { config } from './services/okta/oktaConfig';
 
 // Seller Imports
 import SellerProfile from './pages/SellerProfilePage';
+import { ViewStore } from './pages/ViewStore';
+import { AddInventoryPage } from './pages/AddInventoryPage';
 import { Inventory } from './pages/Inventory/Inventory';
 import { StoreOrdersPage } from './pages/StoreOrdersPage';
 import { StoreSettingsPage } from './pages/StoreSettingsPage';
@@ -62,6 +64,7 @@ function App() {
           <Route path="/" exact component={Landing} />
           <SecureRoute exact path="/stores" component={StoresPage} />
           <SecureRoute exact path="/myprofile" component={SellerProfile} />
+          <SecureRoute exact path="/stores/:store_id" component={ViewStore} />
           <SecureRoute
             exact
             path="/stores/:store_id/inventory"
