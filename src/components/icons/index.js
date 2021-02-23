@@ -6,3 +6,4 @@ export { CheckIcon } from './CheckIcon';
 export { InventoryIcon } from './InventoryIcon';
 export { SettingsIcon } from './SettingsIcon';
 export { OrdersIcon } from './OrdersIcon';
+export { ExpandIcon } from './ExpandIcon';

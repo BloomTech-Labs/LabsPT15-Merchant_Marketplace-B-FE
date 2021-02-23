@@ -28,6 +28,7 @@ import { theme } from './styles/theme';
 import { NewStorePage } from './pages/NewStorePage';
 import { StoresPage } from './pages/StoresPage';
 import { ProfileProvider } from './contexts';
+import { NewProductPage } from './pages/NewProductPage';
 
 ReactDOM.render(
   <Router>
@@ -66,6 +67,13 @@ function App() {
             exact
             path="/stores/:store_id/inventory"
             component={Inventory}
+          />
+          <SecureRoute
+            exact
+            path="/stores/:store_id/add-product"
+            render={routeProps => {
+              return <NewProductPage match={routeProps.match} />;
+            }}
           />
           <SecureRoute
             exact
