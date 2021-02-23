@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Rate, Avatar } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
 import { StyledButton } from '../../styles/styled-components';
+import { ProductCarousel } from '../../components/common/ProductCarousel';
 
 export const ProductInfo = ({ product }) => {
   return (
     <div className="product-page">
       <div className="product-container">
         <section className="product-column-1">
-          <img
-            src="https://media.istockphoto.com/photos/persian-rug-carpet-picture-id135093139"
-            className="main-product-img"
-          />
+          <ProductCarousel>
+            <img
+              src="https://media.istockphoto.com/photos/persian-rug-carpet-picture-id135093139"
+              className="main-product-img"
+            />
+          </ProductCarousel>
           <h4>Description</h4>
           <p>{product?.description}</p>
         </section>

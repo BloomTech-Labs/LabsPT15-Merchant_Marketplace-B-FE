@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ProductInfo } from '../ProductInfo/ProductInfo';
-
+import { ProductInfo } from '../ProductInfo';
 import styled from 'styled-components';
 import { useFetch } from '../../hooks/useFetch';
 import { useParams } from 'react-router-dom';
