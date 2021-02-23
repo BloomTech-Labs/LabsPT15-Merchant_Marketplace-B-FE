@@ -32,10 +32,6 @@ export function Inventory() {
     [stores, store_id, get]
   );
 
-  const handleEdit = id => {
-    // go to edit product page and use this products info
-    console.log(id);
-  };
   const handleList = async id => {
     const publishItem = inventory.find(product => {
       return product.id === id;
@@ -83,8 +79,8 @@ export function Inventory() {
         // columns array prop must be names of fields from correct table
         columns={['Name', 'Created_At', 'Price', 'Stock_Quantity', 'Published']}
         inputData={modifiedInventory}
-        actions={['Edit', 'List Item', 'Delete']}
-        funcs={[handleEdit, handleList, handleDelete]}
+        actions={['List Item', 'Delete']}
+        funcs={[handleList, handleDelete]}
       />
     </Layout>
   );
