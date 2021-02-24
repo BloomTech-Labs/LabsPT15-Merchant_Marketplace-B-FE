@@ -14,7 +14,7 @@ export function SideNavBar() {
   return (
     <StyledAside>
       <StyledNav>
-        <h4>Stores</h4>
+        <h4>My Stores</h4>
         <StoresMenuList />
       </StyledNav>
       <StyledButton onClick={onCreateStore}>Create Store</StyledButton>
@@ -31,6 +31,11 @@ const StyledAside = styled.aside`
   border-radius: 16px;
   background: white;
   padding: 16px;
+
+  h4 {
+    margin-bottom: 14px;
+    text-decoration: underline;
+  }
 `;
 const StyledNav = styled.nav`
   display: flex;

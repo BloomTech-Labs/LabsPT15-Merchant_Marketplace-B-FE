@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { StyledButton } from '../../styles/styled-components';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { CheckIcon, CancelIcon } from '../../components/icons/index';
 
@@ -9,6 +8,9 @@ import { useFetch } from '../../hooks/useFetch';
 import { Layout } from '../../components/common/Layout/Layout';
 import { DataTable } from '../../components/common/DataTable';
 import { useProfile } from '../../contexts/profile/ProfileProvider';
+import styled from 'styled-components';
+import { format } from 'date-fns';
+import { fromUnixTime } from 'date-fns/esm';
 
 export function Inventory() {
   const { stores } = useProfile();
@@ -44,6 +46,7 @@ export function Inventory() {
       setInventory([...newStoreInventory]);
     }
   };
+
   const handleDelete = async id => {
     await deleteReq(`products/${id}`);
     const storeData = await get(`stores/${store_id}/products`);
@@ -52,7 +55,7 @@ export function Inventory() {
   };
 
   const modifiedInventory = inventory.map(product => {
-    const formatDate = new Date(product.created_at).toDateString();
+    const formatDate = format(fromUnixTime(product.created_at), 'LLL do, yyyy');
     const formatPrice = `$${(product.price / 100).toFixed(2)}`;
     const publishedIcon = product.published ? <CheckIcon /> : <CancelIcon />;
     const nameLink = (
@@ -73,18 +76,41 @@ export function Inventory() {
 
   return (
     <Layout>
-      <StyledButton onClick={clickButton}>+Add Item</StyledButton>
-      <DataTable
-        title={'Inventory'}
-        // columns array prop must be names of fields from correct table
-        columns={['Name', 'Created_At', 'Price', 'Stock_Quantity', 'Published']}
-        inputData={modifiedInventory}
-        actions={['List Item', 'Delete']}
-        funcs={[handleList, handleDelete]}
-      />
+      <StyledContainer>
+        <DataTable
+          title={'Inventory'}
+          // columns array prop must be names of fields from correct table
+          columns={[
+            'Name',
+            'Created_At',
+            'Price',
+            'Stock_Quantity',
+            'Published',
+          ]}
+          inputData={modifiedInventory}
+          actions={['List Item', 'Delete']}
+          funcs={[handleList, handleDelete]}
+        />
+        <Link to={`/stores/${store_id}/add-product`}>
+          <StyledButton>Add Product</StyledButton>
+        </Link>
+      </StyledContainer>
     </Layout>
   );
 }
+
+const StyledContainer = styled.div`
+  display: grid;
+  grid-template-rows: 1fr max-content;
+  height: 100%;
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+
+  button {
+    margin-left: auto;
+  }
+`;
 
 const StyledLink = styled(Link)`
   color: #3d5af1;
