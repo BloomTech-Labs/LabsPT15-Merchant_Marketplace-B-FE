@@ -47,7 +47,6 @@ export const Landing = () => {
 
   return (
     <Layout>
-      <BrowserBar />
       <Display>{preview}</Display>
     </Layout>
   );

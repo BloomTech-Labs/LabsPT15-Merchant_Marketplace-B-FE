@@ -67,7 +67,7 @@ const StyledProductPage = styled.div`
 
   .main-product-img {
     width: 100%;
-    heigh: auto;
+    height: auto;
     margin-bottom: 3.5%;
   }
 

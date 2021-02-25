@@ -6,7 +6,7 @@ export const Input = forwardRef(
     const isCheckbox = props.type === 'checkbox';
 
     return (
-      <StyledContainer isCheckbox={isCheckbox}>
+      <StyledContainer isCheckbox={isCheckbox} className="group_container">
         {label ? (
           <StyledLabel htmlFor={props.name} isCheckbox={isCheckbox}>
             {label}

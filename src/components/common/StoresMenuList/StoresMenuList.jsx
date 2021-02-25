@@ -2,7 +2,12 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { useProfile } from '../../../contexts/profile/ProfileProvider';
-import { InventoryIcon, OrdersIcon, SettingsIcon } from '../../icons';
+import {
+  ExpandIcon,
+  InventoryIcon,
+  OrdersIcon,
+  SettingsIcon,
+} from '../../icons';
 
 export function StoresMenuList() {
   const { store_id } = useParams();
@@ -17,15 +22,22 @@ export function StoresMenuList() {
     history.push(`/stores/${id}/inventory`);
   }
 
+  function onStoreExpand(id) {
+    history.push(`/stores/${id}`);
+  }
+
   return profile?.stores?.length ? (
     <StyledContainer>
       {profile.stores.map(store => {
         return (
           <div key={store.id}>
-            <StyledStoreName onClick={() => onStoreSelection(store.id)}>
+            <StyledNameContainer>
               <StylesStoreImg source={store.images[0]} />
-              {store.name}
-            </StyledStoreName>
+              <StyledStoreName onClick={() => onStoreSelection(store.id)}>
+                {store.name}
+              </StyledStoreName>
+              <ExpandIcon onClick={() => onStoreExpand(store.id)} />
+            </StyledNameContainer>
 
             {Number(store_id) === store.id ? (
               <>
@@ -60,11 +72,23 @@ export function StoresMenuList() {
 }
 
 const StyledContainer = styled.div``;
-const StyledStoreName = styled.div`
-  display: flex;
+const StyledNameContainer = styled.div`
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  margin-bottom: 14px;
   align-items: center;
+
+  svg {
+    margin-left: 8px;
+  }
+`;
+
+const StyledStoreName = styled.div`
   cursor: pointer;
-  padding: 14px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
 `;
 const StyledMenuItem = styled.div`
   display: flex;

@@ -1,15 +1,17 @@
 import React from 'react';
 import { Card, Typography, Image } from 'antd';
 import { ImageFallback } from '../../icons/index';
+import { useHistory } from 'react-router-dom';
 
 export const ProductPreviewCard = ({ product, storeName }) => {
   const { Text } = Typography;
+  const history = useHistory();
   const priceToDollars = price => {
     return `$${(price / 100).toFixed(2)}`;
   };
 
   const viewProduct = id => {
-    console.log(`${id} clicked`);
+    history.push(`/products/${id}`);
   };
 
   return (
