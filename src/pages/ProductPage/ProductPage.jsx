@@ -74,7 +74,7 @@ const StyledProductPage = styled.div`
   .map-sample {
     width: 100%;
     height: auto;
-    border-radius: 5%;
+    border-radius: 16px;
     margin-bottom: 0%;
   }
 

@@ -9,13 +9,8 @@ export const ProductInfo = ({ product }) => {
     <div className="product-page">
       <div className="product-container">
         <section className="product-column-1">
-          <ProductCarousel>
-            <img
-              src="https://media.istockphoto.com/photos/persian-rug-carpet-picture-id135093139"
-              className="main-product-img"
-              alt="product-placeholder"
-            />
-          </ProductCarousel>
+          <ProductCarousel images={product?.images} />
+
           <h4>Description</h4>
           <p>{product?.description}</p>
         </section>
@@ -53,6 +48,7 @@ export const ProductInfo = ({ product }) => {
               type="number"
               id="quantity"
               name="quantity"
+              placeholder="1"
               min="1"
               max={product?.stock_quantity}
             />
