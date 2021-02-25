@@ -22,7 +22,7 @@ export const ProductInfo = ({ product }) => {
               className="map-sample"
               alt="map-placeholder"
             />
-            <h6>San Fancisco, CA</h6>
+            <h5 id="location">{product?.store.location.formatted_address}</h5>
           </div>
           <div className="store-container">
             <Avatar size="small" icon={<GlobalOutlined />} />

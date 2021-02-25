@@ -7,3 +7,5 @@ export { InventoryIcon } from './InventoryIcon';
 export { SettingsIcon } from './SettingsIcon';
 export { OrdersIcon } from './OrdersIcon';
 export { ExpandIcon } from './ExpandIcon';
+export { RightCircleArrow } from './RighCircleArrow';
+export { LeftCircleArrow } from './LeftCircleArrow';

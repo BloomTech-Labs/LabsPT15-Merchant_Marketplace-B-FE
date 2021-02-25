@@ -20,7 +20,13 @@ export const ProductPage = props => {
           const productRes = await get(`products/${product_id}`);
           const storeRes = await get(`stores/${productRes.data[0].store_id}`);
           console.log({ productRes, storeRes });
-          setProduct({ ...productRes.data[0], store: { ...storeRes.data } });
+          setProduct({
+            ...productRes.data[0],
+            store: {
+              ...storeRes.data,
+              location: JSON.parse(storeRes.data.location),
+            },
+          });
         } catch (e) {
           console.error(e);
         }
@@ -75,7 +81,12 @@ const StyledProductPage = styled.div`
     width: 100%;
     height: auto;
     border-radius: 16px;
-    margin-bottom: 0%;
+    margin-bottom: 4px;
+  }
+
+  #location {
+    margin: 0;
+    font-size: 14px;
   }
 
   .store-container {
