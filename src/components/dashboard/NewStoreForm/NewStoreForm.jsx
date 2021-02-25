@@ -39,7 +39,7 @@ export function NewStoreForm() {
   }) {
     const operating_hours = `${opening_hours} - ${closing_hours}`;
     const owner_id = oktaId;
-    const stringLocation = JSON.stringify(location);
+    const stringLocation = JSON.stringify(location.current);
     const storeModel = {
       name,
       description,
