@@ -30,7 +30,7 @@ export function StoresMenuList() {
     <StyledContainer>
       {profile.stores.map(store => {
         return (
-          <div key={store.id}>
+          <StyledStoreContainer key={store.id}>
             <StyledNameContainer>
               <StylesStoreImg source={store.images[0]} />
               <StyledStoreName onClick={() => onStoreSelection(store.id)}>
@@ -64,7 +64,7 @@ export function StoresMenuList() {
                 </StyledMenuItem>
               </>
             ) : null}
-          </div>
+          </StyledStoreContainer>
         );
       })}
     </StyledContainer>
@@ -81,6 +81,10 @@ const StyledNameContainer = styled.div`
   svg {
     margin-left: 8px;
   }
+`;
+
+const StyledStoreContainer = styled.div`
+  margin-bottom: 14px;
 `;
 
 const StyledStoreName = styled.div`

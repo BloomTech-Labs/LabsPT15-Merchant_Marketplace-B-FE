@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from '../../components/common/Layout';
-import { NewStoreForm } from '../../components/dashboard/NewStoreForm';
+import { NewStoreForm } from '../../components/common/NewStoreForm';
 
 export function NewStorePage() {
   return (
